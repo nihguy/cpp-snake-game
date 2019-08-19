@@ -1,6 +1,6 @@
 #include "controller.hpp"
 #include <iostream>
-#include "SDL.h"
+#include <SDL2/SDL_events.h>
 #include "../actor/snake.hpp"
 
 namespace Capstone
