@@ -1,10 +1,10 @@
-#ifndef CPP_SNAKE_GAME_GAME_HPP
-#define CPP_SNAKE_GAME_GAME_HPP
+#ifndef CPP_SNAKE_GAME_CORE_GAME_HPP
+#define CPP_SNAKE_GAME_CORE_GAME_HPP
 
 #include <random>
 #include "controller.hpp"
 #include "renderer.hpp"
-#include "snake.hpp"
+#include "../actor/snake.hpp"
 
 namespace Capstone
 {
@@ -37,4 +37,4 @@ class Game {
 
 } // namespace Capstone
 
-#endif // CPP_SNAKE_GAME_GAME_HPP
+#endif // CPP_SNAKE_GAME_CORE_GAME_HPP

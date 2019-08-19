@@ -1,7 +1,7 @@
-#ifndef CPP_SNAKE_GAME_CONTROLLER_HPP
-#define CPP_SNAKE_GAME_CONTROLLER_HPP
+#ifndef CPP_SNAKE_GAME_CORE_CONTROLLER_HPP
+#define CPP_SNAKE_GAME_CORE_CONTROLLER_HPP
 
-#include "snake.hpp"
+#include "../actor/snake.hpp"
 
 namespace Capstone
 {
@@ -19,4 +19,4 @@ class Controller
 
 } // namespace Capstone
 
-#endif // CPP_SNAKE_GAME_CONTROLLER_HPP
+#endif // CPP_SNAKE_GAME_CORE_CONTROLLER_HPP

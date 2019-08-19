@@ -1,7 +1,7 @@
 #include "controller.hpp"
 #include <iostream>
 #include "SDL.h"
-#include "snake.hpp"
+#include "../actor/snake.hpp"
 
 namespace Capstone
 {

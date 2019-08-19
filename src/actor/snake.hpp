@@ -1,5 +1,5 @@
-#ifndef CPP_SNAKE_GAME_SNAKE_HPP
-#define CPP_SNAKE_GAME_SNAKE_HPP
+#ifndef CPP_SNAKE_GAME_ACTOR_SNAKE_HPP
+#define CPP_SNAKE_GAME_ACTOR_SNAKE_HPP
 
 #include <vector>
 #include <SDL2/SDL_rect.h>
@@ -47,4 +47,4 @@ class Snake
 
 } // namespace Capstone
 
-#endif // CPP_SNAKE_GAME_SNAKE_HPP
+#endif // CPP_SNAKE_GAME_ACTOR_SNAKE_HPP
