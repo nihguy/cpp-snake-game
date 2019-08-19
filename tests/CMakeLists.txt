@@ -25,7 +25,7 @@ endfunction()
 
 # Run test with all files from src folder except main.cc
 function(run_test)
-    set(FILES gtest.cc)
+    set(FILES gtest.cc ../src/core/color.hpp ../src/core/color.cc core/color_test.cc)
     create_test(test "${FILES}")
 
     unset(FILES CACHE)

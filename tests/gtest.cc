@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "vector2_test.hpp"
+#include "core/color_test.cc"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
