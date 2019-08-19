@@ -24,15 +24,15 @@ class Game {
 
  private:
   // Variables
-  Snake snake;
-  SDL_Point food;
+  Snake m_snake;
+  SDL_Point m_food;
 
-  std::random_device dev;
-  std::mt19937 engine;
-  std::uniform_int_distribution<int> random_w;
-  std::uniform_int_distribution<int> random_h;
+  std::random_device m_dev;
+  std::mt19937 m_engine;
+  std::uniform_int_distribution<int> m_random_w;
+  std::uniform_int_distribution<int> m_random_h;
 
-  int score {0};
+  int m_score {0};
 };
 
 } // namespace Capstone

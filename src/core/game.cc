@@ -6,10 +6,10 @@ namespace Capstone
 {
 
 Game::Game (std::size_t grid_width, std::size_t grid_height):
-  snake (grid_width, grid_height),
-  engine (dev()),
-  random_w (0, static_cast<int>(grid_width)),
-  random_h (0, static_cast<int>(grid_height))
+  m_snake (grid_width, grid_height),
+  m_engine (m_dev()),
+  m_random_w (0, static_cast<int>(grid_width)),
+  m_random_h (0, static_cast<int>(grid_height))
 {
   place_food();
 }
@@ -29,9 +29,9 @@ void Game::run (Controller const &controller, Renderer &renderer,
     frame_start = SDL_GetTicks();
 
     // Input, Update, Render - the main game loop.
-    controller.handle_input (running, snake);
+    controller.handle_input (running, m_snake);
     update ();
-    renderer.render (snake, food);
+    renderer.render (m_snake, m_food);
 
     frame_end = SDL_GetTicks ();
 
@@ -43,7 +43,7 @@ void Game::run (Controller const &controller, Renderer &renderer,
     // After every second, update the window title.
     if (frame_end - title_timestamp >= 1000)
     {
-      renderer.update_window_title (score, frame_count);
+      renderer.update_window_title (m_score, frame_count);
       frame_count = 0;
       title_timestamp = frame_end;
     }
@@ -63,15 +63,15 @@ void Game::place_food ()
   int x, y;
   while (true)
   {
-    x = random_w(engine);
-    y = random_h(engine);
+    x = m_random_w(m_engine);
+    y = m_random_h(m_engine);
 
     // Check that the location is not occupied by a snake item before placing
     // food.
-    if (!snake.snake_cell(x, y))
+    if (!m_snake.snake_cell(x, y))
     {
-      food.x = x;
-      food.y = y;
+      m_food.x = x;
+      m_food.y = y;
       return;
     }
   }
@@ -79,32 +79,32 @@ void Game::place_food ()
 
 void Game::update()
 {
-  if (!snake.alive) return;
+  if (!m_snake.alive) return;
 
-  snake.update();
+  m_snake.update();
 
-  int new_x = static_cast<int>(snake.head_x);
-  int new_y = static_cast<int>(snake.head_y);
+  int new_x = static_cast<int>(m_snake.head_x);
+  int new_y = static_cast<int>(m_snake.head_y);
 
   // Check if there's food over here
-  if (food.x == new_x && food.y == new_y)
+  if (m_food.x == new_x && m_food.y == new_y)
   {
-    score++;
+    m_score++;
     place_food();
     // Grow snake and increase speed.
-    snake.grow_body();
-    snake.speed += 0.02;
+    m_snake.grow_body();
+    m_snake.speed += 0.02;
   }
 }
 
 int Game::get_score() const
 {
-  return score;
+  return m_score;
 }
 
 int Game::get_size () const
 {
-  return snake.size;
+  return m_snake.size;
 }
 
 } // namespace Capstone

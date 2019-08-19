@@ -47,22 +47,22 @@ void Snake::update_head ()
   }
 
   // Wrap the Snake around to the beginning if going off of the screen.
-  head_x = fmod(head_x + grid_width, grid_width);
-  head_y = fmod(head_y + grid_height, grid_height);
+  head_x = fmod(head_x + m_grid_width, m_grid_width);
+  head_y = fmod(head_y + m_grid_height, m_grid_height);
 }
 
 void Snake::update_body (SDL_Point &current_head_cell, SDL_Point &prev_head_cell) {
   // Add previous head location to vector
   body.push_back(prev_head_cell);
 
-  if (!growing)
+  if (!m_growing)
   {
     // Remove the tail from the vector.
     body.erase(body.begin());
   }
   else
   {
-    growing = false;
+    m_growing = false;
     size++;
   }
 
@@ -78,7 +78,7 @@ void Snake::update_body (SDL_Point &current_head_cell, SDL_Point &prev_head_cell
 
 void Snake::grow_body ()
 {
-  growing = true;
+  m_growing = true;
 }
 
 // Inefficient method to check if cell is occupied by snake.
