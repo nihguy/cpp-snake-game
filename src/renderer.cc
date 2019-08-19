@@ -1,7 +1,7 @@
 #include "renderer.hpp"
 #include <iostream>
 #include <string>
-
+#include <SDL2/SDL.h>
 
 namespace Capstone
 {

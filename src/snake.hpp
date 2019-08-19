@@ -2,7 +2,7 @@
 #define CPP_SNAKE_GAME_SNAKE_HPP
 
 #include <vector>
-#include "SDL.h"
+#include <SDL2/SDL_rect.h>
 
 namespace Capstone
 {

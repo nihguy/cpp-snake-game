@@ -2,7 +2,6 @@
 #define CPP_SNAKE_GAME_GAME_HPP
 
 #include <random>
-#include "SDL.h"
 #include "controller.hpp"
 #include "renderer.hpp"
 #include "snake.hpp"

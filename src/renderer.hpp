@@ -2,7 +2,9 @@
 #define CPP_SNAKE_GAME_RENDERER_HPP
 
 #include <vector>
-#include "SDL.h"
+#include <SDL2/SDL_video.h>
+#include <SDL2/SDL_render.h>
+
 #include "snake.hpp"
 
 namespace Capstone
