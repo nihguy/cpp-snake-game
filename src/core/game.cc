@@ -8,8 +8,8 @@ namespace Capstone
 Game::Game (std::size_t grid_width, std::size_t grid_height):
   m_snake (grid_width, grid_height),
   m_engine (m_dev()),
-  m_random_w (0, static_cast<int>(grid_width)),
-  m_random_h (0, static_cast<int>(grid_height))
+  m_random_w (0, static_cast<int>(grid_width) -1),
+  m_random_h (0, static_cast<int>(grid_height) -1)
 {
   place_food();
 }
