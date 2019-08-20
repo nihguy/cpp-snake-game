@@ -84,15 +84,15 @@ void Renderer::render(Snake const snake, SDL_Point const &food)
                          m_snake_body_color.b,
                          m_snake_body_color.a);
 
-  for (SDL_Point const &point : snake.body) {
+  for (auto const &point : snake.body) {
     block.x = point.x * block.w;
     block.y = point.y * block.h;
     SDL_RenderFillRect(m_sdl_renderer, &block);
   }
 
   // Render snake's head
-  block.x = static_cast<int>(snake.head_x) * block.w;
-  block.y = static_cast<int>(snake.head_y) * block.h;
+  block.x = static_cast<int>(snake.head.x) * block.w;
+  block.y = static_cast<int>(snake.head.y) * block.h;
 
   if (snake.alive)
   {

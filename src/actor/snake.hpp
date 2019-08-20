@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <SDL2/SDL_rect.h>
+#include "../core/vector2.hpp"
 
 namespace Capstone
 {
@@ -11,15 +12,16 @@ class Snake
  public:
   // Methods
   Snake(int grid_width, int grid_height):
-    m_grid_width(grid_width),
-    m_grid_height(grid_height),
-    head_x(grid_width / 2),
-    head_y(grid_height / 2) {}
+    m_grid{grid_width, grid_height},
+    head(grid_width * 0.5f, grid_height * 0.5f)
+  {
+
+  }
 
   void update();
 
   void grow_body();
-  bool snake_cell(int x, int y);
+  bool snake_cell(iVector2 offset);
 
  public:
   // Variables
@@ -29,20 +31,18 @@ class Snake
   float speed {0.1f};
   int size {1};
   bool alive {true};
-  float head_x;
-  float head_y;
-  std::vector<SDL_Point> body;
+  fVector2 head;
+  std::vector<iVector2> body;
 
  private:
   // Methods
   void update_head ();
-  void update_body (SDL_Point &current_cell, SDL_Point &prev_cell);
+  void update_body (iVector2 &current_cell, iVector2 &prev_cell);
 
  private:
   // Variables
   bool m_growing {false};
-  int m_grid_width;
-  int m_grid_height;
+  iVector2 m_grid;
 };
 
 } // namespace Capstone

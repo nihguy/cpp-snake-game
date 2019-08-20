@@ -9,13 +9,11 @@ namespace Capstone
 void Snake::update ()
 {
   // We first capture the head's cell before updating.
-  SDL_Point prev_cell{static_cast<int>(head_x),
-                      static_cast<int>(head_y)};
+  auto prev_cell = iVector2(head);
   update_head();
 
   // Capture the head's cell after updating.
-  SDL_Point current_cell{static_cast<int>(head_x),
-                         static_cast<int>(head_y)};
+  auto current_cell = iVector2(head);
 
   // Update all of the body vector items if the snake head has moved to a new
   // cell.
@@ -30,28 +28,28 @@ void Snake::update_head ()
   switch (direction)
   {
     case Direction::kUp:
-      head_y -= speed;
+      head.y -= speed;
       break;
 
     case Direction::kDown:
-      head_y += speed;
+      head.y += speed;
       break;
 
     case Direction::kLeft:
-      head_x -= speed;
+      head.x -= speed;
       break;
 
     case Direction::kRight:
-      head_x += speed;
+      head.x += speed;
       break;
   }
 
   // Wrap the Snake around to the beginning if going off of the screen.
-  head_x = fmod(head_x + m_grid_width, m_grid_width);
-  head_y = fmod(head_y + m_grid_height, m_grid_height);
+  head.x = fmod(head.x + m_grid.x, m_grid.x);
+  head.y = fmod(head.y + m_grid.y, m_grid.y);
 }
 
-void Snake::update_body (SDL_Point &current_head_cell, SDL_Point &prev_head_cell) {
+void Snake::update_body (iVector2 &current_head_cell, iVector2 &prev_head_cell) {
   // Add previous head location to vector
   body.push_back(prev_head_cell);
 
@@ -82,16 +80,16 @@ void Snake::grow_body ()
 }
 
 // Inefficient method to check if cell is occupied by snake.
-bool Snake::snake_cell (int x, int y)
+bool Snake::snake_cell (iVector2 offset)
 {
-  if (x == static_cast<int>(head_x) && y == static_cast<int>(head_y))
+  if (offset == iVector2(head))
   {
     return true;
   }
 
   for (auto const &item : body)
   {
-    if (x == item.x && y == item.y)
+    if (offset == item)
     {
       return true;
     }

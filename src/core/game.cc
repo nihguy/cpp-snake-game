@@ -31,7 +31,7 @@ void Game::run (Controller const &controller, Renderer &renderer,
     // Input, Update, Render - the main game loop.
     controller.handle_input (running, m_snake);
     update ();
-    renderer.render (m_snake, m_food);
+    renderer.render (m_snake, SDL_Point{m_food.x, m_food.y});
 
     frame_end = SDL_GetTicks ();
 
@@ -68,7 +68,7 @@ void Game::place_food ()
 
     // Check that the location is not occupied by a snake item before placing
     // food.
-    if (!m_snake.snake_cell(x, y))
+    if (!m_snake.snake_cell({ x, y }))
     {
       m_food.x = x;
       m_food.y = y;
@@ -83,11 +83,10 @@ void Game::update()
 
   m_snake.update();
 
-  int new_x = static_cast<int>(m_snake.head_x);
-  int new_y = static_cast<int>(m_snake.head_y);
+  auto new_position = iVector2(m_snake.head);
 
   // Check if there's food over here
-  if (m_food.x == new_x && m_food.y == new_y)
+  if (m_food == new_position)
   {
     m_score++;
     place_food();

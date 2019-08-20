@@ -25,7 +25,7 @@ class Game {
  private:
   // Variables
   Snake m_snake;
-  SDL_Point m_food;
+  iVector2 m_food;
 
   std::random_device m_dev;
   std::mt19937 m_engine;
