@@ -12,7 +12,13 @@ Renderer::Renderer(const std::size_t screen_width,
   m_screen_width(screen_width),
   m_screen_height(screen_height),
   m_grid_width(grid_width),
-  m_grid_height(grid_height)
+  m_grid_height(grid_height),
+
+  m_window_color(Color(30, 30, 30)),
+  m_snake_head_color(Color(0, 122, 204)),
+  m_snake_body_color(Color::White),
+  m_snake_died_color(Color::Red),
+  m_food_color(Color(255, 204, 0))
 {
   // Initialize SDL
   if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -54,17 +60,30 @@ void Renderer::render(Snake const snake, SDL_Point const &food)
   block.h = m_screen_height / m_grid_height;
 
   // Clear screen
-  SDL_SetRenderDrawColor(m_sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
+  SDL_SetRenderDrawColor(m_sdl_renderer,
+                         m_window_color.r,
+                         m_window_color.g,
+                         m_window_color.b,
+                         m_window_color.a);
   SDL_RenderClear(m_sdl_renderer);
 
   // Render food
-  SDL_SetRenderDrawColor(m_sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF);
+  SDL_SetRenderDrawColor(m_sdl_renderer,
+                         m_food_color.r,
+                         m_food_color.g,
+                         m_food_color.b,
+                         m_food_color.a);
   block.x = food.x * block.w;
   block.y = food.y * block.h;
   SDL_RenderFillRect(m_sdl_renderer, &block);
 
   // Render snake's body
-  SDL_SetRenderDrawColor(m_sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+  SDL_SetRenderDrawColor(m_sdl_renderer,
+                         m_snake_body_color.r,
+                         m_snake_body_color.g,
+                         m_snake_body_color.b,
+                         m_snake_body_color.a);
+
   for (SDL_Point const &point : snake.body) {
     block.x = point.x * block.w;
     block.y = point.y * block.h;
@@ -77,11 +96,19 @@ void Renderer::render(Snake const snake, SDL_Point const &food)
 
   if (snake.alive)
   {
-    SDL_SetRenderDrawColor(m_sdl_renderer, 0x00, 0x7A, 0xCC, 0xFF);
+    SDL_SetRenderDrawColor(m_sdl_renderer,
+                           m_snake_head_color.r,
+                           m_snake_head_color.g,
+                           m_snake_head_color.b,
+                           m_snake_head_color.a);
   }
   else
   {
-    SDL_SetRenderDrawColor(m_sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
+    SDL_SetRenderDrawColor(m_sdl_renderer,
+                           m_snake_died_color.r,
+                           m_snake_died_color.g,
+                           m_snake_died_color.b,
+                           m_snake_died_color.a);
   }
 
   SDL_RenderFillRect(m_sdl_renderer, &block);
