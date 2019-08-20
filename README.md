@@ -28,4 +28,16 @@ In this project, you can build your own C++ application or extend this Snake gam
 1. Clone this repo.
 2. Make a build directory in the top level directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. Run it: `./SnakeGame`.
+4. Run it: `./src/cpp_snake_game`.
+
+## Compile With Tests
+
+The unit test is useful to ensures the code will not brake while the project is evolving. Moreover, it can help other programmers to understand the code easier. 
+ 
+Although this repo has a [unit test directory](tests/), with the main class behavior explained, it is  not compiled by default. If you are going to run this tests with the project, ensures the _TESTING_ CMake's option is assigned to _ON_, as follows:
+
+1. Clone this repo.
+2. Make a build directory in the top level directory: `mkdir build && cd build`
+3. Compile the project assigning _TESTING_ as _ON_ on _cmake_: `cmake .. -DTESTING=ON && make`
+4. Run the tests: `./tests/test`.
+5. Run the project `./src/cpp_snake_game`
