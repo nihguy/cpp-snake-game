@@ -30,7 +30,11 @@ function(run_test)
               ../src/core/color.hpp ../src/core/color.cc core/color_test.cc
 
               # Vector2
-              ../src/core/vector2.hpp ../src/core/vector2.inl core/vector2_test.cc)
+              ../src/core/vector2.hpp ../src/core/vector2.inl core/vector2_test.cc
+
+              # Allocation
+              ../src/core/allocation.hpp ../src/core/allocation.inl core/allocation_test.cc)
+
     create_test(test "${FILES}")
 
     unset(FILES CACHE)
