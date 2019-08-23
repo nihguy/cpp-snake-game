@@ -25,23 +25,63 @@ In this project, you can build your own C++ application or extend this Snake gam
 
 ## Basic Build Instructions
 
-1. Clone this repo.
-2. Make a build directory in the top level directory: `mkdir build && cd build`
-3. Compile: `cmake .. && make`
-4. Run it: `./src/cpp_snake_game`.
+```console
+$ # clone the repo
+$ git clone https://github.com/v-borg/cpp-snake-game.git
+$
+$ # change the current directory to the used by the repo
+$ cd cpp-snake-game
+$
+$ # make a build directory and change the current directory to it
+$ mkdir build && cd $_
+$
+$ # execute `cmake` command to prepare the project to be compiled
+$ cmake .. -DBUILD_TESTS=ON
+$
+$ # execute `make` to compile the project
+$ make
+$
+$ # run the project executable
+$ ./src/cpp_snake_game
+```
 
-## Compile With Tests
+## Build with [Unit Testing](https://en.wikipedia.org/wiki/Unit_testing)
 
-The unit test is useful to ensures the code will not brake while the project is evolving. Moreover, it can help other programmers to understand the code easier. 
+The unit testing is useful to ensures the code will not brake while the project is evolving. Moreover, it can help other programmers to understand the code behavior easier.
  
-Although this repo has a [unit test directory](tests/), with the main class behavior explained, it is  not compiled by default. If you are going to run this tests with the project, ensures the _TESTING_ CMake's option is assigned to _ON_, as follows:
+This repo uses [Google Test](https://github.com/google/googletest) and [Google Mock](https://github.com/google/googletest/tree/master/googlemock) to do the tests. 
+You can find that tests [here](tests/), with the main behavior classes' explained, although it is not compiled by default. 
 
-1. Clone this repo.
-2. Make a build directory in the top level directory: `mkdir build && cd build`
-3. Compile the project assigning _TESTING_ as _ON_ on _cmake_: `cmake .. -DTESTING=ON && make`
-4. Run the tests: `./tests/test`.
-5. Run the project `./src/cpp_snake_game`
+If you are going to run this tests with the project, some additional commands are needed:
 
+```console
+$ # make sure to clone the repo using `--recursive-module` from git command
+$ git clone --recurse-submodules https://github.com/v-borg/cpp-snake-game.git
+$
+$ # IMPORTANT!
+$ # if the repos was already cloned without the `--recursive-submodules` command, 
+$ # you can ignore the above command and still use the command below to ensure 
+$ # the Google Test and Google Mock will be available at compile time:
+$ #
+$ # git submodule update --init --recursive
+$
+$ # change the current directory to the used by the repo
+$ cd cpp-snake-game
+$
+$ # make a build directory and change the current directory to it
+$ mkdir build && cd $_
+$
+$ # execute `cmake` command with CMake's `BUILD_TEST` as `ON` to prepare the project 
+$ # and their tests to be compiled
+$ cmake .. -DBUILD_TESTS=ON
+$
+$ # execute `make` to compile the project
+$ make
+$
+$ # run the tests and the project executable as well
+$ ./tests/order
+$ ./src/cpp_snake_game
+```
 
 ## Project Specification
 
