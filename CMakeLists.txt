@@ -3,11 +3,13 @@ project(cpp_snake_game)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_subdirectory(src)
-
-option(TESTING "Use TESTING to compile the test cases" OFF) # OFF by default
-if (TESTING)
+option(BUILD_TESTS "Use BUILD_TESTS to compile the test cases" OFF) # OFF by default
+if (BUILD_TESTS)
+    message("Building tests")
+    set(BUILD_GMOCK ON)
+    add_subdirectory(vendor/googletest)
     add_subdirectory(tests)
 endif()
 
-unset(TESTING CACHE)
+add_subdirectory(src)
+unset(BUILD_TESTS CACHE)

@@ -1,43 +1,8 @@
-###################################################
-# Testing
-###################################################
+cmake_minimum_required(VERSION 3.14)
+project(cpp_snake_game_tests)
 
-# Download and unpack googletest at configure time
-include(${PROJECT_SOURCE_DIR}/cmake/gtest.cmake)
-enable_testing()
-include(GoogleTest)
+include_directories(../ ../vendor/googletest/googletest/include ../vendor/googletest/googlemock/include)
 
-# Add executable and link library
-function(create_test PROJECT_TEST_NAME TEST_CASES_FILES)
-    message(STATUS "Adding target ${PROJECT_TEST_NAME} for test cases: ${TEST_CASES_FILES}" )
+add_executable(order order.cc core/allocation_test.cc ../src/core/allocation.hpp ../src/core/allocation.inl ../src/core/color.hpp ../src/core/color.cc ../src/core/vector2.hpp ../src/core/vector2.inl)
 
-    add_executable(${PROJECT_TEST_NAME} ${TEST_CASES_FILES})
-
-    target_link_libraries(${PROJECT_TEST_NAME} gtest gtest_main)
-    target_include_directories(${PROJECT_TEST_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
-    target_include_directories(${PROJECT_TEST_NAME} PUBLIC ${GTEST_INCLUDE_DIRS})
-
-    gtest_add_tests(
-            TARGET      ${PROJECT_TEST_NAME}
-            TEST_LIST   ${PROJECT_TEST_NAME}_targets
-    )
-endfunction()
-
-# Run test with all files from src folder except main.cc
-function(run_test)
-    set(FILES gtest.cc
-              # Color test
-              ../src/core/color.hpp ../src/core/color.cc core/color_test.cc
-
-              # Vector2
-              ../src/core/vector2.hpp ../src/core/vector2.inl core/vector2_test.cc
-
-              # Allocation
-              ../src/core/allocation.hpp ../src/core/allocation.inl core/allocation_test.cc)
-
-    create_test(test "${FILES}")
-
-    unset(FILES CACHE)
-endfunction()
-
-run_test()
+target_link_libraries(order gmock gtest)
