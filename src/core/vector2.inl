@@ -31,14 +31,15 @@ Capstone::Vector2<T>::Vector2 (const Capstone::Vector2<U>& vector):
 
 }
 
-template <typename T>
-bool operator ==(const Capstone::Vector2<T>& left, const Capstone::Vector2<T>& right)
+template <typename T, typename U>
+bool operator ==(const Capstone::Vector2<T>& left, const Capstone::Vector2<U>& right)
 {
   return (left.x == right.x) && (left.y == right.y);
 }
 
-template <typename T>
-bool operator !=(const Capstone::Vector2<T>& left, const Capstone::Vector2<T>& right)
+
+template <typename T, typename U>
+bool operator !=(const Capstone::Vector2<T>& left, const Capstone::Vector2<U>& right)
 {
   return !(left == right);
 }

@@ -66,8 +66,8 @@ class Vector2 {
  * @param left   Left operand (a vector)
  * @param right  Right operand (a vector)
  */
-template <typename T>
-bool operator ==(const Vector2<T>& left, const Vector2<T>& right);
+template <typename T, typename U>
+bool operator ==(const Vector2<T>& left, const Vector2<U>& right);
 
 /**
  * Overload of binary operator !=
@@ -77,8 +77,8 @@ bool operator ==(const Vector2<T>& left, const Vector2<T>& right);
  * @param left   Left operand (a vector)
  * @param right  Right operand (a vector)
  */
-template <typename T>
-bool operator !=(const Vector2<T>& left, const Vector2<T>& right);
+template <typename T, typename U>
+bool operator !=(const Vector2<T>& left, const Vector2<U>& right);
 
 #include "vector2.inl"
 
