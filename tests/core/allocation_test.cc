@@ -76,9 +76,19 @@ TYPED_TEST(AllocationTest, CopyContructor_ShouldCastTheCopiedVector2ToTheCurrent
   ASSERT_STRNE(typeid(*this->allocation).name(), typeid(original).name()) << "The Allocation type should not be the same because it was converted";
 
   auto converted = this->allocation->template get_allocation_as<double> ();
-  ASSERT_STREQ(typeid(*this->allocation).name(), typeid(converted).name()) << "The Allocation type should be the same because it was converted";
+  ASSERT_STREQ(typeid(original).name(), typeid(converted).name()) << "The Allocation type should be the same because it was converted";
 
-  ASSERT_TRUE(*this->allocation == original) << "Should be true because they both have the same measures";
+
+  if (typeid(TypeParam) == typeid(float))
+  {
+    ASSERT_TRUE (*this->allocation == original) << "Should be true because Allocation<double> converted from Allocation<float> have the same coordinates values";
+  }
+  else
+  {
+    ASSERT_FALSE (*this->allocation == original) << "Should be false because Allocation<double> converted from Allocation<non-float> have different coordinates values";
+  }
+
+  ASSERT_TRUE (*this->allocation == converted) << "Should be true because the value was converted from the first one";
 }
 
 TYPED_TEST(AllocationTest, Measures_ShouldBeReassigned)

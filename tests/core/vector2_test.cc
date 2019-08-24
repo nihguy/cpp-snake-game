@@ -45,27 +45,16 @@ TYPED_TEST(Vector2Test, DefaultContructor_ShouldDefineTheCoordinatesAsZero)
 {
   this->Assign (new ::Capstone::Vector2<TypeParam>{});
 
-  ASSERT_EQ(this->vector2->x, 0);
-  ASSERT_EQ(this->vector2->y, 0);
+  ASSERT_EQ(this->vector2->x, 0) << "Vector2's `x` coordinates should be zero when the default constructor is called";
+  ASSERT_EQ(this->vector2->y, 0) << "Vector2's `y` coordinates should be zero when the default constructor is called";
 }
 
-TYPED_TEST(Vector2Test, ParameterContructor_ShouldCastArgumentValueUsingTemplateArgumentDeductionType)
+TYPED_TEST(Vector2Test, ParameterContructor_ShouldDefineEachCoordinate)
 {
-  this->Assign (new ::Capstone::Vector2<TypeParam> (-0.5f, -0.5f));
+  this->Assign (new ::Capstone::Vector2<TypeParam>{ 1, 2 });
 
-  ASSERT_EQ(this->vector2->x, static_cast<TypeParam>(-0.5f)) << "Vector2 should cast the `x` argument value to the deduction type";
-  ASSERT_EQ(this->vector2->y, static_cast<TypeParam>(-0.5f)) << "Vector2 should cast the `y` argument value to the deduction type";
-
-  if (typeid (TypeParam) == typeid (float))
-  {
-    ASSERT_FLOAT_EQ (this->vector2->x, -0.5f) << "Vector2<float> should keep the negative float value to `x` coordinate";
-    ASSERT_FLOAT_EQ (this->vector2->y, -0.5f) << "Vector2<float> should keep the negative float value to `y` coordinate";
-  }
-  else
-  {
-    ASSERT_NE (this->vector2->x, -0.5f) << "Vector2<int> and Vector2<unsigned int> should cast -0.5f to zero on `x` coordinate";
-    ASSERT_NE (this->vector2->y, -0.5f) << "Vector2<int> and Vector2<unsigned int> should cast -0.5f to zero on `y` coordinate";
-  }
+  ASSERT_EQ (this->vector2->x, 1) << "Vector2's `x` coordinate should be 1 because it is defined as first parameter on parameter constructor";
+  ASSERT_EQ (this->vector2->y, 2) << "Vector2's `y` coordinate should be 1 because it is defined as second parameter on parameter constructor";
 }
 
 TYPED_TEST(Vector2Test, SingleParameterContructor_ShouldAssignTheSameValueToTheCoordinates)
