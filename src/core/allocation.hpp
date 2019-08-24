@@ -139,8 +139,8 @@ class Allocation
  * @param left   Left operand (a Allocation)
  * @param right  Right operand (a Allocation)
  */
-template <typename T>
-bool operator ==(const Allocation<T>& left, const Allocation<T>& right);
+template <typename T, typename U>
+bool operator ==(const Allocation<T>& left, const Allocation<U>& right);
 
 /**
  * Overload of binary operator !=
@@ -150,8 +150,8 @@ bool operator ==(const Allocation<T>& left, const Allocation<T>& right);
  * @param left   Left operand (a Allocation)
  * @param right  Right operand (a Allocation)
  */
-template <typename T>
-bool operator !=(const Allocation<T>& left, const Allocation<T>& right);
+template <typename T, typename U>
+bool operator !=(const Allocation<T>& left, const Allocation<U>& right);
 
 #include "allocation.inl"
 

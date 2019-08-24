@@ -13,7 +13,7 @@ Capstone::BoundingBox<T>::BoundingBox(const T &top, const T &bottom, const T &le
 // This defines the default constructor with size and offset as zero
 template<typename T>
 Capstone::Allocation<T>::Allocation ():
-  size({ 0, 0}),
+  size({ 0, 0 }),
   offset({ 0, 0 })
 {
 
@@ -72,15 +72,15 @@ bool Capstone::Allocation<T>::check_collision (const Capstone::Allocation<U>& ot
 }
 
 // This compares the size and offset of two Allocation of the same type
-template <typename T>
-bool operator ==(const Capstone::Allocation<T>& left, const Capstone::Allocation<T>& right)
+template <typename T, typename U>
+bool operator ==(const Capstone::Allocation<T>& left, const Capstone::Allocation<U>& right)
 {
   return (left.size == right.size) && (left.offset == right.offset);
 }
 
 // This checks if the size and offset of two Allocations are different when they both have the same type
-template <typename T>
-bool operator !=(const Capstone::Allocation<T>& left, const Capstone::Allocation<T>& right)
+template <typename T, typename U>
+bool operator !=(const Capstone::Allocation<T>& left, const Capstone::Allocation<U>& right)
 {
   return !(left == right);
 }
