@@ -108,7 +108,7 @@ TYPED_TEST(Vector2Test, Cordinates_ShouldBeReassigned)
   ASSERT_EQ(this->vector2->y, 1) << "The Vector2's y coordinate should be reassigned to 1";
 }
 
-TYPED_TEST(Vector2Test, Vector2_ShouldBeComparedToEachOther)
+TYPED_TEST(Vector2Test, IsEqualToAndIsNotEqualToOperators_ShouldVector2BeComparedToEachOther)
 {
   this->Assign (new ::Capstone::Vector2<TypeParam> {1, 2});
 
@@ -122,7 +122,7 @@ TYPED_TEST(Vector2Test, Vector2_ShouldBeComparedToEachOther)
   ASSERT_FALSE (*this->vector2 != sameCoordinates) << "Should ignore the type and return false to `!=` because all coordinate value are the same";
 }
 
-TYPED_TEST(Vector2Test, Vector2_Coordinates_ShouldAcceptAssignmentAsWellAsTheirTypes)
+TYPED_TEST(Vector2Test, Coordinates_ShouldAcceptAssignmentAsWellAsTheirTypes)
 {
   this->Assign (new ::Capstone::Vector2<TypeParam> {100});
 
