@@ -1,7 +1,6 @@
-// Copyright 2019 <Victor Borges>
 
-#ifndef CPP_SNAKE_GAME_CORE_VECTOR4_HPP
-#define CPP_SNAKE_GAME_CORE_VECTOR4_HPP
+#ifndef CPP_SNAKE_GAME_CORE_ALLOCATION_HPP
+#define CPP_SNAKE_GAME_CORE_ALLOCATION_HPP
 
 #include "vector2.hpp"
 
@@ -9,9 +8,10 @@ namespace Capstone
 {
 
 /**
- * This defines the bounding box of an object
+ * The bounding box
  *
- * It holds each offset of the object in pixels
+ * It holds each edge's offset of the object, starting from top
+ * to bottom, from left to right of screen
  *
  * @tparam T  The BoundingBox type
  */
@@ -19,8 +19,7 @@ template <typename T>
 struct BoundingBox
 {
   /**
-   * This defines each edge of the object because they are constant
-   * and obviously, can't be modified.
+   * This defines the constant edge of each object's offset.
    *
    * @param top     The top edged of the object in pixel
    * @param bottom  The bottom edged of the object in pixel
@@ -29,7 +28,9 @@ struct BoundingBox
    */
   explicit BoundingBox(const T &top, const T &bottom, const T &left, const T &right);
 
-  // Variables
+  /**
+   * There are the constant edge of each object's offset
+   */
   const T top;
   const T bottom;
   const T right;
@@ -40,8 +41,7 @@ struct BoundingBox
 /**
  * Utility template class for manipulating offset and size of an object.
  *
- * This avoids the frequent calculation of the objects's location and make
- * collision's check easier.
+ * This defines the object's location and make collision's check easier.
  *
  * @tparam T  Commonly a number type
  */
@@ -57,6 +57,8 @@ class Allocation
   Allocation();
 
   /**
+   * Parameterized constructor
+   *
    * This defines the offset and the size of the object.
    *
    * @param size  The width and height of object
@@ -86,7 +88,7 @@ class Allocation
    *
    *   auto int_alloc = Capstone::fAllocation.get_allocation_as<int>();
    *
-   * This example will convert the Allocation of float type to an Allocation
+   * This example will convert the Allocation of float type to the Allocation
    * of int type.
    *
    * @tparam U  The Allocation type expected
@@ -99,21 +101,21 @@ class Allocation
   /**
    * This returns the bounding box of the current object.
    *
-   * The bounding box defines the offset of each edge of the object in
-   * pixels.
+   * The bounding box defines each edge's offset of the object from top
+   * to bottom, left to right of screen.
    *
    * @return BoundingBox<T>
    */
   const BoundingBox<T> get_bounding_box() const;
 
   /**
-   * This checks collision of two Allocationz
+   * This checks collision of two Allocations
    *
    * This identifies if the current object is colliding with another one
    *
    * @tparam U  The Allocation type expected
    * @param other Allocation that will be compared
-   * @return boolean;
+   * @return boolean
    */
   template<typename U>
   bool check_collision(const Allocation<U>& other) const;
@@ -163,4 +165,4 @@ typedef Allocation<float> fAllocation;
 
 } // namespace Capstone
 
-#endif // CPP_SNAKE_GAME_CORE_VECTOR4_HPP
+#endif // CPP_SNAKE_GAME_CORE_ALLOCATION_HPP

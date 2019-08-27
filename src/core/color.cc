@@ -24,6 +24,7 @@ Color::Color ():
 
 }
 
+// Parametrized constructor
 // This defines each color channel
 Color::Color (int red, int green, int blue, int alpha):
   r (static_cast<Uint8>(std::min(std::max(red, 0),255))),

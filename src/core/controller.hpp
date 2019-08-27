@@ -1,20 +1,43 @@
 #ifndef CPP_SNAKE_GAME_CORE_CONTROLLER_HPP
 #define CPP_SNAKE_GAME_CORE_CONTROLLER_HPP
 
-#include "../actor/snake.hpp"
+#include "game.hpp"
 
 namespace Capstone
 {
+
+class Game;
+
+/**
+ * This defines the keys used to handle the game
+ */
+enum class KeyPressed
+{
+  kUndefined,
+  kUp,
+  kLeft,
+  kDown,
+  kRight,
+  kEnter,
+};
+
+/**
+ *
+ */
 class Controller
 {
  public:
-  // Methods
-  void handle_input (bool &running, Snake &snake) const;
 
- private:
-  // Methods
-  void change_direction (Snake &snake, Snake::Direction input,
-                         Snake::Direction opposite) const;
+  /**
+   * This handles the input dispatched by the user
+   *
+   * It defines if the Key pressed by the user is a valid command
+   * and return a enum representing this command.
+   *
+   * @param running  This boolean defines if the close should be closed
+   * @return KeyPressed  The command equivalent to key pressed by the user
+   */
+  virtual KeyPressed handle_input(bool& running) = 0;
 };
 
 } // namespace Capstone

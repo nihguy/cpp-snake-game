@@ -1,77 +1,61 @@
+// Copyright 2019 <Victor Borges>
+
+#include <SDL_events.h>
 #include "snake.hpp"
-#include <cmath>
-#include <iostream>
+#include "../core/vector2.hpp"
 
+namespace Capstone {
 
-namespace Capstone
+Snake::Snake (iVector2 size, iVector2 offset, iVector2 grid):
+  fAllocation::Allocation (fVector2(size.x, size.y), fVector2(offset.x, offset.y)),
+  m_grid(grid),
+  speed(0.2f),
+  alive{true},
+  m_growing{false}
 {
 
-void Snake::update ()
+}
+
+void Snake::update (std::size_t delta_time)
 {
-  // We first capture the head's cell before updating.
-  auto prev_cell = iVector2(head);
-  update_head();
+  // We first capture the head's cell before updating
+  iVector2 prev_cell = iVector2(offset);
+  update_head ();
 
-  // Capture the head's cell after updating.
-  auto current_cell = iVector2(head);
+  // After update, we capture the head's cell again
+  iVector2 current_cell = iVector2(offset);
 
-  // Update all of the body vector items if the snake head has moved to a new
-  // cell.
-  if (current_cell.x != prev_cell.x || current_cell.y != prev_cell.y)
+  // Update all of the body vector items if the snake head has moved to a new cell
+  if (current_cell != prev_cell)
   {
-    update_body(current_cell, prev_cell);
+    update_body (current_cell, prev_cell);
   }
 }
 
-void Snake::update_head ()
+void Snake::render (Renderer& renderer)
 {
-  switch (direction)
+  // Render snake's body
+  renderer.fill_color (body_color);
+  for (const Block &point: body)
   {
-    case Direction::kUp:
-      head.y -= speed;
-      break;
-
-    case Direction::kDown:
-      head.y += speed;
-      break;
-
-    case Direction::kLeft:
-      head.x -= speed;
-      break;
-
-    case Direction::kRight:
-      head.x += speed;
-      break;
+    renderer.fill(point);
   }
 
-  // Wrap the Snake around to the beginning if going off of the screen.
-  head.x = fmod(head.x + m_grid.x, m_grid.x);
-  head.y = fmod(head.y + m_grid.y, m_grid.y);
-}
-
-void Snake::update_body (iVector2 &current_head_cell, iVector2 &prev_head_cell) {
-  // Add previous head location to vector
-  body.push_back(prev_head_cell);
-
-  if (!m_growing)
+  if (alive)
   {
-    // Remove the tail from the vector.
-    body.erase(body.begin());
+    renderer.fill_color (head_color);
   }
   else
   {
-    m_growing = false;
-    size++;
+    renderer.fill_color (dead_color);
   }
 
-  // Check if the snake has died.
-  for (auto const &item : body)
-  {
-    if (current_head_cell.x == item.x && current_head_cell.y == item.y)
-    {
-      alive = false;
-    }
-  }
+  renderer.fill(get_allocation_as<int> ());
+}
+
+void Snake::prepare (Renderer& renderer)
+{
+
 }
 
 void Snake::grow_body ()
@@ -79,22 +63,81 @@ void Snake::grow_body ()
   m_growing = true;
 }
 
-// Inefficient method to check if cell is occupied by snake.
-bool Snake::snake_cell (iVector2 offset)
+void Snake::handle_input (const KeyPressed & key)
 {
-  if (offset == iVector2(head))
+  switch (key)
   {
-    return true;
+    case KeyPressed::kUp:
+      change_direction (Direction::kUp, Direction::kDown);
+      break;
+    case KeyPressed::kDown:
+      change_direction (Direction::kDown, Direction::kUp);
+      break;
+    case KeyPressed::kLeft:
+      change_direction (Direction::kLeft, Direction::kRight);
+      break;
+    case KeyPressed::kRight:
+      change_direction (Direction::kRight, Direction::kLeft);
+      break;
+  }
+}
+
+void Snake::change_direction (const Snake::Direction input, const Snake::Direction oposite)
+{
+  if (direction != oposite) direction = input;
+}
+
+void Snake::update_head ()
+{
+  if (!alive)
+  {
+    return;
   }
 
-  for (auto const &item : body)
+  // Changes the head direction and accelerate it in a constant speed;
+  switch(direction)
   {
-    if (offset == item)
+    case Direction::kUp:
+      offset.y -= speed;
+      break;
+    case Direction::kDown:
+      offset.y += speed;
+      break;
+    case Direction::kLeft:
+      offset.x -= speed;
+      break;
+    case Direction::kRight:
+      offset.x += speed;
+      break;
+  }
+
+  // Wraps the snake around to the beginning if going off the screen.
+  offset.x = fmod(offset.x + m_grid.x, m_grid.x);
+  offset.y = fmod(offset.y + m_grid.y, m_grid.y);
+}
+
+void Snake::update_body (iVector2& current_head_cell, iVector2& prev_head_cell)
+{
+  // Add previous head location to vector
+  body.emplace_back (Block(iVector2(size), prev_head_cell));
+
+  if (!m_growing)
+  {
+    body.erase(body.begin());
+  }
+  else
+  {
+    m_growing = false;
+  }
+
+  // Check if the snake has died
+  for (const auto &item: body)
+  {
+    if (item.offset == current_head_cell)
     {
-      return true;
+      alive = false;
     }
   }
-  return false;
 }
 
 } // namespace Capstone

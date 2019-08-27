@@ -1,42 +1,75 @@
 #ifndef CPP_SNAKE_GAME_CORE_RENDERER_HPP
 #define CPP_SNAKE_GAME_CORE_RENDERER_HPP
 
-#include <vector>
-#include <SDL2/SDL_video.h>
-#include <SDL2/SDL_render.h>
-
-#include "../actor/snake.hpp"
 #include "color.hpp"
+#include "vector2.hpp"
+#include "allocation.hpp"
+
+// Todo: remover
+#include <iostream>
+#include <memory>
 
 namespace Capstone
 {
+
+class GameState;
+
+/**
+ * This defines the interface to access the main function on
+ * the graphical library abstraction.
+ */
 class Renderer
 {
  public:
-  // Methods
-  Renderer (const std::size_t screen_width, const std::size_t screen_height,
-           const std::size_t grid_width, const std::size_t grid_height);
-  ~Renderer ();
 
-  void render (Snake const snake, SDL_Point const &food);
-  void update_window_title (int score, int fps);
+  /**
+   * Destructor
+   */
+  virtual ~Renderer () = default;
 
- private:
-  // Variables
-  SDL_Window *m_sdl_window;
-  SDL_Renderer *m_sdl_renderer;
+  /**
+   * This clear the screen using the color assigned as argument
+   *
+   * @param color  The Color used to paint the screen
+   */
+  virtual void clear(const Color &color) const = 0;
 
-  const std::size_t m_screen_width;
-  const std::size_t m_screen_height;
-  const std::size_t m_grid_width;
-  const std::size_t m_grid_height;
+  /**
+   * This fill the color to be used by the object on screen
+   *
+   * @param color  The color used by the GameObject
+   */
+  virtual void fill_color(const Color &color) const = 0;
 
-  // Colors
-  Color m_window_color;
-  Color m_snake_head_color;
-  Color m_snake_body_color;
-  Color m_snake_died_color;
-  Color m_food_color;
+  /**
+   * This defines fill the object with the color and prepares
+   * it to be renderer by display method.
+   *
+   * @param allocation  The place where the GameObject should be rendered
+   */
+  virtual void fill(const iAllocation &allocation) const = 0;
+
+  /**
+   * This render the object properly
+   *
+   * It's the final step to ensures the GameObject will be displayed
+   * on the screen.
+   */
+  virtual void display() const = 0;
+
+  /**
+   * This returns the grid height and the width values
+   *
+   * @return iVector2  The height and width value in x and y coordinates
+   */
+  virtual const iVector2 get_grid() const = 0;
+
+  /**
+   * This returns the screen height and the width values
+   *
+   * @return iVector2  The height and width value in x and y coordinates
+   */
+  virtual const iVector2 get_screen() const = 0;
 };
 
 } // namespace Capstone

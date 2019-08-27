@@ -2,7 +2,6 @@
 #define CPP_SNAKE_GAME_CORE_COLOR_HPP
 
 #include <SDL2/SDL_stdinc.h>
-#include <SDL2/SDL_pixels.h>
 
 namespace Capstone
 {
@@ -27,7 +26,7 @@ class Color
   Color();
 
   /**
-   * This defines the current color
+   * Parameterized constructor
    *
    * It allows the current class to define each channel with values between
    * 0 and 255

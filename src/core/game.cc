@@ -1,109 +1,87 @@
+
 #include "game.hpp"
-#include <iostream>
-#include <SDL2/SDL_timer.h>
 
 namespace Capstone
 {
 
-Game::Game (std::size_t grid_width, std::size_t grid_height):
-  m_snake (grid_width, grid_height),
-  m_engine (m_dev()),
-  m_random_w (0, static_cast<int>(grid_width) -1),
-  m_random_h (0, static_cast<int>(grid_height) -1)
+// Default constructor
+Game::Game ():
+    is_running{true}
 {
-  place_food();
+
 }
 
-void Game::run (Controller const &controller, Renderer &renderer,
-               std::size_t target_frame_duration)
+// Destructor
+Game::~Game ()
 {
-  Uint32 title_timestamp = SDL_GetTicks();
-  Uint32 frame_start;
-  Uint32 frame_end;
-  Uint32 frame_duration;
-  int frame_count = 0;
-  bool running = true;
-
-  while (running)
+  // Deletes all
+  while (!m_states.empty ())
   {
-    frame_start = SDL_GetTicks();
-
-    // Input, Update, Render - the main game loop.
-    controller.handle_input (running, m_snake);
-    update ();
-    renderer.render (m_snake, SDL_Point{m_food.x, m_food.y});
-
-    frame_end = SDL_GetTicks ();
-
-    // Keep track of how long each loop through the input/update/render cycle
-    // takes.
-    frame_count++;
-    frame_duration = frame_end - frame_start;
-
-    // After every second, update the window title.
-    if (frame_end - title_timestamp >= 1000)
-    {
-      renderer.update_window_title (m_score, frame_count);
-      frame_count = 0;
-      title_timestamp = frame_end;
-    }
-
-    // If the time for this frame is too small (i.e. frame_duration is
-    // smaller than the target ms_per_frame), delay the loop to
-    // achieve the correct frame rate.
-    if (frame_duration < target_frame_duration)
-    {
-      SDL_Delay (target_frame_duration - frame_duration);
-    }
+    pop_state ();
   }
 }
 
-void Game::place_food ()
+// This creates the game loop
+bool Game::render (GameLoop &game_loop, Controller &controller)
 {
-  int x, y;
-  while (true)
+  // This allows each GameState to choose the next one. Moreover, it defines
+  // the time between the frames and allow the GameState in focus to handle
+  // their own inputs
+  return game_loop.execute (*this, *m_renderer, controller);
+}
+
+void Game::set_renderer (std::unique_ptr<Renderer> renderer)
+{
+  m_renderer = std::move(renderer);
+}
+
+void Game::push_state (std::unique_ptr<GameState> state)
+{
+  if (m_renderer == nullptr)
   {
-    x = m_random_w(m_engine);
-    y = m_random_h(m_engine);
-
-    // Check that the location is not occupied by a snake item before placing
-    // food.
-    if (!m_snake.snake_cell({ x, y }))
-    {
-      m_food.x = x;
-      m_food.y = y;
-      return;
-    }
+    throw std::runtime_error("The Renderer should be assigned before Game::push_state be called.");
   }
+
+  // It ensures the GameState will get access to the current game instance
+  state->set_game_handler (*this);
+
+  // This prepares the GameState in focus allowing it to get access
+  // to the Renderer class
+  state->prepare (*m_renderer);
+
+  // It moves the smart pointer to the stack, keeping the order of execution
+  m_states.push (std::move(state));
 }
 
-void Game::update()
+void Game::pop_state ()
 {
-  if (!m_snake.alive) return;
+  // It deletes the GameState in focus
+  m_states.pop ();
+}
 
-  m_snake.update();
-
-  auto new_position = iVector2(m_snake.head);
-
-  // Check if there's food over here
-  if (m_food == new_position)
+void Game::replace_state (std::unique_ptr<GameState> state)
+{
+  // It deletes the GameState in focus
+  if (!m_states.empty ())
   {
-    m_score++;
-    place_food();
-    // Grow snake and increase speed.
-    m_snake.grow_body();
-    m_snake.speed += 0.02;
+    pop_state ();
   }
+
+  // It replace the GameState in focus by the assigned as argument
+  push_state (std::move(state));
 }
 
-int Game::get_score() const
+// This returns the GameState in focus
+GameState *Game::peek_state ()
 {
-  return m_score;
-}
+  // If the stack is empty, throws an error
+  if (m_states.empty ())
+  {
+    throw std::range_error("Attempt to access invalid Game State on Capstone::Game class. Capstone::Game::pop_state removed the last one");
+  }
 
-int Game::get_size () const
-{
-  return m_snake.size;
+  // It returns the current state
+  return m_states.top ().get();
 }
 
 } // namespace Capstone

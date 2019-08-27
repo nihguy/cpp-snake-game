@@ -1,22 +1,22 @@
 #include <iostream>
 #include "core/controller.hpp"
 #include "core/game.hpp"
-#include "core/renderer.hpp"
+
+#include "sdl/renderer.hpp"
+#include "states/main_state.hpp"
+#include "sdl/game_loop.hpp"
+#include "sdl/controller.hpp"
 
 int main() {
   constexpr std::size_t kFramesPerSecond{60};
   constexpr std::size_t kMsPerFrame{1000 / kFramesPerSecond};
-  constexpr std::size_t kScreenWidth{640};
-  constexpr std::size_t kScreenHeight{640};
-  constexpr std::size_t kGridWidth{32};
-  constexpr std::size_t kGridHeight{32};
 
-  Capstone::Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
-  Capstone::Controller controller;
-  Capstone::Game game(kGridWidth, kGridHeight);
-  game.run(controller, renderer, kMsPerFrame);
-  std::cout << "Game has terminated successfully!" << std::endl;
-  std::cout << "Score: " << game.get_score() << std::endl;
-  std::cout << "Size: " << game.get_size() << std::endl;
-  return 0;
+  SDL::GameLoop game_loop { kMsPerFrame };
+  SDL::Controller controller {};
+
+  Capstone::Game game {};
+  game.set_renderer (std::make_unique<SDL::Renderer>(Capstone::iVector2{ 640, 640 }, Capstone::iVector2{ 32, 32 }));
+  game.push_state (std::make_unique<Capstone::MainState>());
+
+  return game.render (game_loop, controller);
 }

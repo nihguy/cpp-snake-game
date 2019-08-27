@@ -43,11 +43,11 @@ template<typename U>
 const Allocation<U> Capstone::Allocation<T>::get_allocation_as () const
 {
   // This returns a "copy" of the current Allocation with the type assigned
-  // to type deduction
+  // to template type deduction `U`
   return Allocation<U>(*this);
 }
 
-// This creates the offset (in pixel) of each box edge and returns the BoundingBox as well
+// This creates the offset of each box edge and returns the BoundingBox as well
 template<typename T>
 const Capstone::BoundingBox<T> Capstone::Allocation<T>::get_bounding_box() const
 {
@@ -67,8 +67,8 @@ bool Capstone::Allocation<T>::check_collision (const Capstone::Allocation<U>& ot
   auto current = get_bounding_box ();
   auto target = other.get_bounding_box ();
 
-  return (current.right >= target.left) && (target.right >= current.left) && // It checks X coordinate
-         (current.bottom >= target.top) && (target.bottom >= current.top);   // It checks Y coordinate
+  return (current.right > target.left) && (target.right > current.left) && // It checks X coordinate
+         (current.bottom > target.top) && (target.bottom > current.top);   // It checks Y coordinate
 }
 
 // This compares the size and offset of two Allocation of the same type
