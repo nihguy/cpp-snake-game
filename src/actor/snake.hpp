@@ -4,7 +4,7 @@
 #define CPP_SNAKE_GAME_ACTOR_SNAKE_HPP
 
 #include <vector>
-#include <SDL_events.h>
+
 #include "../core/vector2.hpp"
 #include "../core/renderer.hpp"
 #include "..//core/allocation.hpp"

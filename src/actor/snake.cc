@@ -1,6 +1,5 @@
 // Copyright 2019 <Victor Borges>
 
-#include <SDL_events.h>
 #include "snake.hpp"
 #include "../core/vector2.hpp"
 
