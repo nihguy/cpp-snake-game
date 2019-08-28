@@ -5,8 +5,9 @@ namespace Capstone
 {
 
 // Default constructor
-Game::Game ():
-    is_running{true}
+Game::Game (std::unique_ptr<Renderer> renderer):
+  m_renderer{std::move(renderer)},
+  is_running{true}
 {
 
 }
@@ -30,18 +31,8 @@ bool Game::render (GameLoop &game_loop, Controller &controller)
   return game_loop.execute (*this, *m_renderer, controller);
 }
 
-void Game::set_renderer (std::unique_ptr<Renderer> renderer)
-{
-  m_renderer = std::move(renderer);
-}
-
 void Game::push_state (std::unique_ptr<GameState> state)
 {
-  if (m_renderer == nullptr)
-  {
-    throw std::runtime_error("The Renderer should be assigned before Game::push_state be called.");
-  }
-
   // It ensures the GameState will get access to the current game instance
   state->set_game_handler (*this);
 

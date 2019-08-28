@@ -36,29 +36,21 @@ class Game {
   Game &operator= (const Game&) = delete;
 
   // Defines usable constructor
-  Game();
+  Game(std::unique_ptr<Renderer> renderer);
   virtual ~Game();
 
   /**
-   * TODO: corrigir
    * This renders the GameState in focus
    *
-   * It Renders the current GameState respecting the interval defined as argument.
+   * It Renders the GameState in focus using a external rule define as GameLoop
+   * and a external Controller that handler the input given to the GameState classes.
    *
-   * @param target_frame_duration   It defines the milliseconds interval between frames
+   * @param GameLopp   It defines the game loop used on the game.
+   * @param Controller   It defines the input handler used on the game.
    * @returns boolean   True if the game is running
    */
   bool render(GameLoop &game_loop, Controller &controller);
 
-
-  /**
-   * This defines the Renderer class
-   *
-   * All GameState on stack will get access to the same Renderer assigned here
-   *
-   * @param Renderer renderer   It defines the Renderer configured by user
-   */
-  void set_renderer(std::unique_ptr<Renderer> renderer);
 
   /**
    * This pushes the GameState to the stack
@@ -115,7 +107,7 @@ class Game {
   std::stack<std::unique_ptr<GameState>> m_states;
 
   /**
-   * This holds a pointer to the Renderer class. It ensures that the same instance
+   * This holds the Renderer class instance. It ensures that the same instance
    * of the Renderer class can be given to the GameStates' stack classes.
    */
   std::unique_ptr<Renderer> m_renderer;
