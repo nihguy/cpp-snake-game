@@ -153,7 +153,7 @@ TYPED_TEST(AllocationTest, GetBoundigBox_ShouldMethodReturnTheObjectEdgeOffset)
 {
   this->Assign (new ::Capstone::Allocation<TypeParam>{{10, 10}, {10, 10}});
 
-  ::Capstone::BoundingBox<TypeParam> boundingBox = this->allocation->get_bounding_box ();
+  ::Capstone::BoundingBox boundingBox = this->allocation->get_bounding_box ();
 
   ASSERT_EQ (100, boundingBox.top) << "Should return true because top edge is the product of offset and size `y` coordinates";
   ASSERT_EQ (110, boundingBox.bottom) << "Should return true because bottom edge is the product of offset and size `y` coordinates plus `y` size";
