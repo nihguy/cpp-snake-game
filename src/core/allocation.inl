@@ -1,14 +1,5 @@
 
 #include "allocation.hpp"
-template<typename T>
-Capstone::BoundingBox<T>::BoundingBox(const T &top, const T &bottom, const T &left, const T &right):
-  top(top),
-  left(left),
-  bottom(bottom),
-  right(right)
-{
-
-}
 
 // This defines the default constructor with size and offset as zero
 template<typename T>
@@ -49,13 +40,15 @@ const Allocation<U> Capstone::Allocation<T>::get_allocation_as () const
 
 // This creates the offset of each box edge and returns the BoundingBox as well
 template<typename T>
-const Capstone::BoundingBox<T> Capstone::Allocation<T>::get_bounding_box() const
+const Capstone::BoundingBox Capstone::Allocation<T>::get_bounding_box() const
 {
-  return BoundingBox<T> {
-    offset.y * size.y,          // top
-    offset.y * size.y + size.y, // bottom
-    offset.x * size.x,          // left
-    offset.x * size.x + size.x  // right
+  auto cast = get_allocation_as<int> ();
+
+  return {
+    cast.offset.y * cast.size.y,               // top
+    cast.offset.y * cast.size.y + cast.size.y, // bottom
+    cast.offset.x * cast.size.x,               // left
+    cast.offset.x * cast.size.x + cast.size.x  // right
   };
 }
 

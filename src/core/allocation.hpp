@@ -11,30 +11,36 @@ namespace Capstone
  * The bounding box
  *
  * It holds each edge's offset of the object, starting from top
- * to bottom, from left to right of screen
- *
- * @tparam T  The BoundingBox type
+ * to bottom, from left to right of screen converting the values
+ * to integer to make collision check easier
  */
-template <typename T>
 struct BoundingBox
 {
   /**
-   * This defines the constant edge of each object's offset.
+   * This defines the constant edge of each object's offset
+   * converting the values to integer.
    *
    * @param top     The top edged of the object in pixel
    * @param bottom  The bottom edged of the object in pixel
    * @param left    The left edged of the object in pixels
    * @param right   The right edged of the object in pixels
    */
-  explicit BoundingBox(const T &top, const T &bottom, const T &left, const T &right);
+  BoundingBox(const int &top, const int &bottom, const int &left, const int &right):
+      top(top),
+      left(left),
+      bottom(bottom),
+      right(right)
+  {
+
+  }
 
   /**
    * There are the constant edge of each object's offset
    */
-  const T top;
-  const T bottom;
-  const T right;
-  const T left;
+  const int top;
+  const int bottom;
+  const int right;
+  const int left;
 };
 
 
@@ -104,9 +110,9 @@ class Allocation
    * The bounding box defines each edge's offset of the object from top
    * to bottom, left to right of screen.
    *
-   * @return BoundingBox<T>
+   * @return BoundingBox  The value of each offset converted to integer
    */
-  const BoundingBox<T> get_bounding_box() const;
+  const BoundingBox get_bounding_box() const;
 
   /**
    * This checks collision of two Allocations
