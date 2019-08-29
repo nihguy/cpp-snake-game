@@ -26,10 +26,10 @@ struct BoundingBox
    * @param right   The right edged of the object in pixels
    */
   BoundingBox(const int &top, const int &bottom, const int &left, const int &right):
-      top(top),
-      left(left),
-      bottom(bottom),
-      right(right)
+    top(top),
+    left(left),
+    bottom(bottom),
+    right(right)
   {
 
   }
