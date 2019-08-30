@@ -30,7 +30,10 @@ void Block::render (Renderer& renderer)
 
 void Block::prepare (Renderer& renderer)
 {
-
+  size = iVector2(
+    renderer.get_screen ().x / renderer.get_grid ().x,
+    renderer.get_screen ().y / renderer.get_grid ().y
+  );
 }
 
 } // namespace Capstone

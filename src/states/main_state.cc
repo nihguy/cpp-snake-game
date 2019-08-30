@@ -5,49 +5,53 @@
 namespace Capstone
 {
 
+// This updates the GameObject behavior
 void MainState::update (std::size_t delta_time)
 {
   m_snake->update (delta_time);
 
-  if (m_snake->get_allocation_as<int> ().check_collision (*m_food))
+  if(m_snake->get_status () == SnakeStatus::kEating)
   {
-    m_snake->grow_body ();
-    m_food->offset.x = m_random.get_x ();
-    m_food->offset.y = m_random.get_y ();
+    m_food.replace();
+    m_snake->growing ();
   }
 }
 
+// This renders the GameObjects
 void MainState::render (Renderer& renderer)
 {
   renderer.clear (Color(0x1E1E1EFF));
 
-  m_food->render (renderer);
+  m_food.render (renderer);
   m_snake->render(renderer);
 
   renderer.display ();
 }
 
+// This prepared the game to be rendered
 void MainState::prepare (Renderer& renderer)
 {
-  iVector2 size {
-    renderer.get_screen ().x / renderer.get_grid ().x,
-    renderer.get_screen ().y / renderer.get_grid ().y
-  };
+  m_snake = std::make_shared<Snake> ();
+  m_snake->prepare (renderer);
 
-  auto grid = renderer.get_grid ();
-  m_random.max = { grid.x - 1, grid.y - 1 };
+  m_food.set_target (m_snake);
+  m_food.prepare (renderer);
 
-  m_food = std::make_unique<Block> (size, iVector2(m_random.get_x (), m_random.get_y ()));
-  m_food->color = Color(0xFFCC00FF);
-
-  m_snake = std::make_unique<Snake> (size, iVector2 { 31, 31 }, grid);
-  m_snake->body_color = Color::White;
-  m_snake->head_color = Color(0x7ACCFFFF);
-  m_snake->dead_color = Color::Red;
 }
 
+// This creates the input handler of the GameState
 void MainState::handle_input (const KeyPressed &key)
 {
+  // This allows the game to reinitialize when the snake has been collided
+  // and the user dispatch `Enter` command
+  if (m_snake->get_status () == SnakeStatus::kColliding)
+  {
+    if(key == KeyPressed::kEnter)
+    {
+      m_snake->reset();
+    }
+  }
+
   m_snake->handle_input (key);
 }
 } // namespace Capstone

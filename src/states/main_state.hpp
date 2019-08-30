@@ -10,6 +10,8 @@
 #include "../actor/snake.hpp"
 #include "../core/random_position.hpp"
 
+#include "../core/food.hpp"
+
 namespace Capstone
 {
 
@@ -22,10 +24,8 @@ class MainState: public GameState
   void handle_input (const KeyPressed &key) override;
 
  protected:
-  std::unique_ptr<Block> m_food;
-  std::unique_ptr<Snake> m_snake;
-
-  RandomPosition m_random;
+  Food m_food;
+  std::shared_ptr<Snake> m_snake;
 };
 
 } // namespace Capstone

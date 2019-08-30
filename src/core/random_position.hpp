@@ -20,15 +20,17 @@ class RandomPosition
 {
  public:
   /**
-   * Default constructor
+   * Parametrized constructor
+   *
+   * @param delimiter  This defines the delimiter variables
    */
-  RandomPosition();
+  explicit RandomPosition(const iVector2& delimiter);
 
   /**
    * Get a random number
    *
    * It returns a number between zero and the number specified
-   * on x's coordinate.
+   * on x's coordinate delimiter.
    *
    * @return int  The random number
    */
@@ -38,14 +40,31 @@ class RandomPosition
    * Get a random number
    *
    * It returns a number between zero and the number specified
-   * on ys coordinate.
+   * on y's coordinate delimiter.
    *
    * @return int  The random number
    */
   int get_y();
 
-  iVector2 max;
+  /**
+   * Get a random Vector2<int>
+   *
+   * It returns a random coordinate between zero and the number
+   * specified on delimiter variable.
+   */
+  iVector2 get();
+
+ public:
+
+  /**
+   * This defines the max length of each coordinate
+   */
+  iVector2 delimiter;
  protected:
+
+  /**
+   * The variables used to create the default C++ random behavior
+   */
   std::random_device m_dev;
   std::mt19937 m_engine;
   std::uniform_int_distribution<int> m_random;
