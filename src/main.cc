@@ -3,11 +3,11 @@
 #include "core/game.hpp"
 
 #include "sdl/renderer.hpp"
-#include "states/main_state.hpp"
 #include "sdl/game_loop.hpp"
 #include "sdl/controller.hpp"
 #include "sdl/game_font_builder.hpp"
 #include "sdl/font_maker.hpp"
+#include "states/splash_screen_state.hpp"
 
 int main() {
   try
@@ -33,7 +33,7 @@ int main() {
     }
 
     Capstone::Game game{std::move (renderer), std::move(game_font)};
-    game.push_state (std::make_unique<Capstone::MainState> ());
+    game.push_state (std::make_unique<Capstone::SplashScreenState> ());
 
     return game.render (game_loop, controller);
   }
