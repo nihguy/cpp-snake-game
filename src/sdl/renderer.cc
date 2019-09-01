@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <SDL2/SDL_ttf.h>
 #include "renderer.hpp"
 
 namespace SDL
@@ -31,6 +32,13 @@ Renderer::Renderer (const Capstone::iVector2& screen, const Capstone::iVector2& 
   {
     std::cerr << "Renderer could not be created." << std::endl;
     std::cerr << "SDL_Error: " << SDL_GetError () << std::endl;
+    SDL_Quit();
+  }
+
+
+  if(TTF_Init() == -1)
+  {
+    printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
     SDL_Quit();
   }
 }

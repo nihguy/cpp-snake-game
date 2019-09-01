@@ -1,4 +1,3 @@
-// Copyright 2019 <Victor Borges>
 
 #ifndef CPP_SNAKE_GAME_CORE_GAME_HPP
 #define CPP_SNAKE_GAME_CORE_GAME_HPP
@@ -9,7 +8,7 @@
 
 #include "game_state.hpp"
 #include "game_loop.hpp"
-#include "vector2.hpp"
+#include "game_font.hpp"
 #include "renderer.hpp"
 
 namespace Capstone
@@ -36,7 +35,7 @@ class Game {
   Game &operator= (const Game&) = delete;
 
   // Defines usable constructor
-  Game(std::unique_ptr<Renderer> renderer);
+  Game(std::unique_ptr<Renderer> renderer, std::unique_ptr<GameFont> fonts);
   virtual ~Game();
 
   /**
@@ -89,6 +88,16 @@ class Game {
    */
   GameState *peek_state();
 
+
+  /**
+   * This returns the GameFont
+   *
+   * It ensures the game can use the font list previously defined, so the GameState
+   * don't need to know what's the font or what's the logic used by graphical library,
+   * just need to "know" the classes will use the same font "theme" along the GameStates.
+   */
+  const GameFont* get_font() const;
+
  public:
 
   /**
@@ -111,6 +120,12 @@ class Game {
    * of the Renderer class can be given to the GameStates' stack classes.
    */
   std::unique_ptr<Renderer> m_renderer;
+
+  /**
+   * This holds the Font Builder class. It ensures the font theme will be prepared,
+   * regardless the graphical library used.
+   */
+  std::unique_ptr<GameFont> m_fonts;
 };
 } // namespace Capstone
 

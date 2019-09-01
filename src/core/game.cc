@@ -5,8 +5,9 @@ namespace Capstone
 {
 
 // Default constructor
-Game::Game (std::unique_ptr<Renderer> renderer):
+Game::Game (std::unique_ptr<Renderer> renderer, std::unique_ptr<GameFont> fonts):
   m_renderer{std::move(renderer)},
+  m_fonts{std::move(fonts)},
   is_running{true}
 {
 
@@ -73,6 +74,11 @@ GameState *Game::peek_state ()
 
   // It returns the current state
   return m_states.top ().get();
+}
+
+const GameFont* Game::get_font () const
+{
+  return m_fonts.get();
 }
 
 } // namespace Capstone
