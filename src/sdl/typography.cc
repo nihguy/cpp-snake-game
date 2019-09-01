@@ -6,7 +6,10 @@
 namespace SDL
 {
 
-Typography::Typography (const std::string& path, unsigned int size)
+Typography::Typography (const std::string& path, unsigned int size):
+  m_texture{nullptr},
+  m_renderer{nullptr},
+  m_font{nullptr}
 {
   m_font = TTF_OpenFont (path.c_str (), size);
 
