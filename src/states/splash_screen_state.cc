@@ -19,7 +19,7 @@ void SplashScreenState::update (std::size_t delta_time)
 
   if (m_timeout <= m_elapsed_time)
   {
-    m_game->replace_state (std::make_unique<MainState> ());
+    m_game->push_state (std::make_unique<MainState> ());
   }
 
   if (m_elapsed_time >= (m_timeout - 600))
@@ -81,7 +81,7 @@ void SplashScreenState::handle_input (const KeyPressed& key)
   // If any known key is pressed immediately change the focus to the next state
   if (key != KeyPressed::kUndefined)
   {
-    m_game->replace_state (std::make_unique<MainState> ());
+    m_game->push_state (std::make_unique<MainState> ());
   }
 }
 } // namespace Capstone
