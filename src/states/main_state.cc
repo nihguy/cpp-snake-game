@@ -3,7 +3,7 @@
 #include "main_state.hpp"
 #include "../sdl/typography.hpp"
 #include "pause_state.hpp"
-#include "game_over_state.hpp"
+#include "end_game_state.hpp"
 
 namespace Capstone
 {
@@ -11,13 +11,13 @@ namespace Capstone
 // This updates the GameObject behavior
 void MainState::update (std::size_t delta_time)
 {
-
-  if(!m_snake->alive)
+  if(!m_snake->alive || m_snake->body.size () > 64)
   {
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::this_thread::sleep_for (std::chrono::milliseconds(800));
     auto score = m_snake->body.size ();
+    auto is_winner = m_snake->alive;
     m_snake->reset ();
-    m_game->push_state (std::make_unique<GameOverState>(score));
+    m_game->push_state (std::make_unique<EndGameState>(score, is_winner));
   }
 
   m_snake->update (delta_time);

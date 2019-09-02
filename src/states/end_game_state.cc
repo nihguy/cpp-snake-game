@@ -1,22 +1,23 @@
 
-#include "game_over_state.hpp"
+#include "end_game_state.hpp"
 
 namespace Capstone
 {
 
-GameOverState::GameOverState (int score):
-  m_score(score)
+EndGameState::EndGameState (int score, bool finished):
+  m_score(score),
+  m_finished{finished}
 {
 
 }
 
-void GameOverState::update (std::size_t delta_time)
+void EndGameState::update (std::size_t delta_time)
 {
   // This update the font color in focus.
   m_button_chooser.update (delta_time);
 }
 
-void GameOverState::render (Renderer& renderer)
+void EndGameState::render (Renderer& renderer)
 {
   renderer.clear (Color(0x1E1E1EFF));
 
@@ -28,7 +29,7 @@ void GameOverState::render (Renderer& renderer)
   renderer.display ();
 }
 
-void GameOverState::prepare (Renderer& renderer)
+void EndGameState::prepare (Renderer& renderer)
 {
   // This defines the screen center
   iVector2 centered = {
@@ -42,9 +43,17 @@ void GameOverState::prepare (Renderer& renderer)
   m_score_font->prepare (renderer);
 
 
+  // The message depends on the `m_finished` value
+  std::string title_message = "GAME OVER";
+
+  if (m_finished)
+  {
+    title_message = "YOU WIN!";
+  }
+
   // This defines the title's font instance
   m_title_font = m_game->get_font ()->create (FontTheme::kDark, FontSize::kMedium);
-  m_title_font->set_text("GAME OVER");
+  m_title_font->set_text(title_message);
   m_title_font->prepare (renderer);
 
   // This defines the "play again"'s font instance
@@ -93,7 +102,7 @@ void GameOverState::prepare (Renderer& renderer)
   m_button_chooser.prepare (renderer);
 }
 
-void GameOverState::handle_input (const KeyPressed& key)
+void EndGameState::handle_input (const KeyPressed& key)
 {
   m_button_chooser.handle_input (key);
 }
