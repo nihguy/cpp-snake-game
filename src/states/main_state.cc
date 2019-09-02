@@ -3,6 +3,7 @@
 #include "main_state.hpp"
 #include "../sdl/typography.hpp"
 #include "pause_state.hpp"
+#include "game_over_state.hpp"
 
 namespace Capstone
 {
@@ -10,6 +11,15 @@ namespace Capstone
 // This updates the GameObject behavior
 void MainState::update (std::size_t delta_time)
 {
+
+  if(!m_snake->alive)
+  {
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    auto score = m_snake->body.size ();
+    m_snake->reset ();
+    m_game->push_state (std::make_unique<GameOverState>(score));
+  }
+
   m_snake->update (delta_time);
 
   if(m_snake->get_status () == SnakeStatus::kEating)
@@ -63,13 +73,10 @@ void MainState::handle_input (const KeyPressed &key)
 {
   // This allows the game to reinitialize when the snake has been collided
   // and the user dispatch `Enter` command
-//  if (m_snake->get_status () == SnakeStatus::kColliding)
-//  {
-    if(key == KeyPressed::kEnter)
-    {
-      m_game->push_state (std::make_unique<PauseState> ());
-    }
-//  }
+  if(key == KeyPressed::kEnter)
+  {
+    m_game->push_state (std::make_unique<PauseState> ());
+  }
 
   m_snake->handle_input (key);
 }
