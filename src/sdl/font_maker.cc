@@ -38,7 +38,7 @@ FontDescription font_maker (const Capstone::FontTheme& theme, const Capstone::Fo
 
     case Capstone::FontSize::kLarge:
       font_description.path = "resources/fonts/PressStart2P.ttf";
-      font_description.size = 30;
+      font_description.size = 40;
 
       if (theme == Capstone::FontTheme::kDark)
       {
