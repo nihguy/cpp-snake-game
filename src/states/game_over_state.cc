@@ -44,7 +44,7 @@ void GameOverState::prepare (Renderer& renderer)
 
   // This defines the title's font instance
   m_title_font = m_game->get_font ()->create (FontTheme::kDark, FontSize::kMedium);
-  m_title_font->set_text("Game Over");
+  m_title_font->set_text("GAME OVER");
   m_title_font->prepare (renderer);
 
   // This defines the "play again"'s font instance
@@ -75,8 +75,7 @@ void GameOverState::prepare (Renderer& renderer)
   play_again_font->offset.x -= play_again_font->size.x / 2;
 
   // This defines the `y` coordinate of each font
-  play_again_font->offset.y -= play_again_font->size.y / 2 - 30;
-  m_score_font->offset.y = play_again_font->offset.y - m_title_font->size.y - 70;
+  m_score_font->offset.y = play_again_font->offset.y - m_title_font->size.y - 100;
   m_title_font->offset.y = play_again_font->offset.y - m_title_font->size.y - 15;
   quit_font->offset.y = play_again_font->offset.y + quit_font->size.y + 3;
 
