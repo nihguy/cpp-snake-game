@@ -1,4 +1,5 @@
 
+#include <cmath>
 #include "snake.hpp"
 
 namespace Capstone {

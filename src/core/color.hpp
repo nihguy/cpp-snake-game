@@ -1,10 +1,13 @@
 #ifndef CPP_SNAKE_GAME_CORE_COLOR_HPP
 #define CPP_SNAKE_GAME_CORE_COLOR_HPP
 
-#include <SDL2/SDL_stdinc.h>
-
 namespace Capstone
 {
+
+typedef unsigned char Uint8;
+typedef unsigned int Uint32;
+
+
 /**
  * This defines a color that can be used by SDL functions
  *
@@ -73,10 +76,10 @@ class Color
    *
    * All values can be assigned with values between 0 and 255
    */
-  Uint8  r; // red
-  Uint8  g; // green
-  Uint8  b; // blue
-  Uint8  a; // alpha (opacity)
+  Uint8 r; // red
+  Uint8 g; // green
+  Uint8 b; // blue
+  Uint8 a; // alpha (opacity)
 };
 
 /**

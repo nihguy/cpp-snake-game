@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "color.hpp"
 
 namespace Capstone
