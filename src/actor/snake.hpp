@@ -100,6 +100,10 @@ class Snake: public GameThread, public fAllocation {
   Color body_color;
   Color head_color;
 
+  /**
+   * This defines if the Snake is alive
+   */
+  bool alive;
 
  private:
   /**

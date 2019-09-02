@@ -8,7 +8,8 @@ Snake::Snake ():
   m_status(SnakeStatus::kWalking),
   m_direction(Direction::kUp),
   m_speed(0.2f),
-  m_growing{false}
+  m_growing{false},
+  alive{true}
 {
 
 }
@@ -20,6 +21,7 @@ void Snake::update (std::size_t delta_time)
   {
     // It changes the head color when the Snake collides
     head_color = Color::Red;
+    alive = false;
     return;
   }
 
@@ -181,6 +183,7 @@ const SnakeStatus Snake::get_status () const
 void Snake::reset ()
 {
   body.clear ();
+  alive = true;
   m_speed = 0.2f;
   m_growing = false;
   offset = { m_grid.x - 1.f, m_grid.y - 1.f};
