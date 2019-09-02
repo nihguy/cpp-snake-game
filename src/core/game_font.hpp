@@ -12,7 +12,6 @@ namespace Capstone
  */
 enum class FontSize
 {
-  kExtraSmall,
   kSmall,
   kMedium,
   kLarge

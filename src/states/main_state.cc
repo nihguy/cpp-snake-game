@@ -2,6 +2,7 @@
 #include <iostream>
 #include "main_state.hpp"
 #include "../sdl/typography.hpp"
+#include "pause_state.hpp"
 
 namespace Capstone
 {
@@ -46,7 +47,7 @@ void MainState::prepare (Renderer& renderer)
   m_snake->prepare (renderer);
 
   // This defines the font
-  m_score_font = m_game->get_font ()->create (FontTheme::kDark, FontSize::kExtraSmall);
+  m_score_font = m_game->get_font ()->create (FontTheme::kDark, FontSize::kSmall);
   m_score_font->set_text ("SCORE " + std::to_string (m_snake->body.size ()));
   m_score_font->prepare (renderer);
   m_score_font->offset.x = renderer.get_screen ().x / 2 - m_score_font->size.x / 2;
@@ -62,13 +63,13 @@ void MainState::handle_input (const KeyPressed &key)
 {
   // This allows the game to reinitialize when the snake has been collided
   // and the user dispatch `Enter` command
-  if (m_snake->get_status () == SnakeStatus::kColliding)
-  {
+//  if (m_snake->get_status () == SnakeStatus::kColliding)
+//  {
     if(key == KeyPressed::kEnter)
     {
-      m_snake->reset();
+      m_game->push_state (std::make_unique<PauseState> ());
     }
-  }
+//  }
 
   m_snake->handle_input (key);
 }

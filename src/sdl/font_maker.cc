@@ -12,7 +12,7 @@ FontDescription font_maker (const Capstone::FontTheme& theme, const Capstone::Fo
 
   switch(size)
   {
-    case Capstone::FontSize::kExtraSmall:
+    case Capstone::FontSize::kSmall:
       font_description.path = "resources/fonts/BitPotion.ttf";
       font_description.size = 50;
 
@@ -26,28 +26,19 @@ FontDescription font_maker (const Capstone::FontTheme& theme, const Capstone::Fo
       }
       break;
 
-    case Capstone::FontSize::kSmall:
-      font_description.path = "resources/fonts/PressStart2P.ttf";
-      font_description.size = 20;
-
-      if (theme == Capstone::FontTheme::kDark)
-      {
-        font_description.color = Capstone::Color(0xF0F7F4FF);
-      }
-      break;
-
     case Capstone::FontSize::kMedium:
       font_description.path = "resources/fonts/PressStart2P.ttf";
       font_description.size = 30;
 
       if (theme == Capstone::FontTheme::kDark)
       {
-        font_description.color = Capstone::Color(0xF0F7F4FF);
+        font_description.color = Capstone::Color(0x99E1D9FF);
       }
+      break;
 
     case Capstone::FontSize::kLarge:
       font_description.path = "resources/fonts/PressStart2P.ttf";
-      font_description.size = 40;
+      font_description.size = 30;
 
       if (theme == Capstone::FontTheme::kDark)
       {

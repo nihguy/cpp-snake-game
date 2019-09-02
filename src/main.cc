@@ -22,7 +22,7 @@ int main() {
     SDL::Controller controller{};
 
     Capstone::FontTheme font_theme_list[2] = { Capstone::FontTheme::kLight, Capstone::FontTheme::kDark };
-    Capstone::FontSize font_size_list[4] = { Capstone::FontSize::kExtraSmall, Capstone::FontSize::kSmall,  Capstone::FontSize::kMedium, Capstone::FontSize::kLarge };
+    Capstone::FontSize font_size_list[4] = { Capstone::FontSize::kSmall, Capstone::FontSize::kMedium,  Capstone::FontSize::kLarge };
 
     for (const auto &theme : font_theme_list)
     {
