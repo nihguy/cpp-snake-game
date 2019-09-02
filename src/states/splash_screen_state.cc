@@ -75,7 +75,7 @@ void SplashScreenState::prepare (Renderer& renderer)
   // This defines the "capstone"'s font text alignment
   m_capstone_font->offset = centered;
   m_capstone_font->offset.x -= m_capstone_font->size.x / 2;
-  m_capstone_font->offset.y -= m_capstone_font->size.y / 2 + 10;
+  m_capstone_font->offset.y -= m_capstone_font->size.y / 2 + 30;
 
   // This defines "udacity"'s font text alignment
   m_udacity_font->offset = centered;
