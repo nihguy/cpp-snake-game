@@ -7,6 +7,9 @@ This Snake Game is based on stater [repo](https://github.com/udacity/CppND-Capst
 * Use the FSM (Finite State Machine) to uncouple each game states in their own classes and execute just one at a time.
 * Add SDL’s font to the game and store its text on texture, saving memory.
 
+## Contents
+
+- [Project's Class Structure](#projects-class-structure)
 - [Dependencies](#dependencies-for-running-locally)
 - [Basic Build Instructions](#basic-build-instructions)
 - [Build with Unit Testing](#build-with-unit-testing)
