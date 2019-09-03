@@ -1,12 +1,18 @@
-# CPPND: Capstone Snake Game Example
+# Udacity C++ Nanodegree Program: Capstone
 
-This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
+This game is based on stater [repo](https://github.com/udacity/CppND-Capstone-Snake-Game) for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). 
 
-<img src="snake_game.gif"/>
 
-The Capstone Project gives you a chance to integrate what you've learned throughout this program. This project will become an important part of your portfolio to share with current and future colleagues and employers.
-
-In this project, you can build your own C++ application or extend this Snake game, following the principles you have learned throughout this Nanodegree Program. This project will demonstrate that you can independently create applications using a wide range of C++ features.
+- [Dependencies](#dependencies-for-running-locally)
+- [Basic Build Instructions](#basic-build-instructions)
+- [Build with Unit Testing](#build-with-unit-testing)
+- [Project Specification](#project-specification)
+    - [README (All Rubric Points REQUIRED)](#readme-all-rubric-points-required)
+    - [Compiling and Testing (All Rubric Points REQUIRED)](#compiling-and-testing-all-rubric-points-required)
+    - [Loops, Functions, I/O](#loops-functions-io)
+    - [Object Oriented Programming](#object-oriented-programming)
+    - [Memory Management](#memory-management)
+    - [Concurrency](#concurrency)
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
@@ -17,7 +23,16 @@ In this project, you can build your own C++ application or extend this Snake gam
   * Windows: [Click here for installation instructions](http://gnuwin32.sourceforge.net/packages/make.htm)
 * SDL2 >= 2.0
   * All installation instructions can be found [here](https://wiki.libsdl.org/Installation)
-  * Note that for Linux, an `apt` or `apt-get` installation is preferred to building from source.
+  * Note that for Linux, an `apt`, `apt-get`, `dnf` or `pacman` installation is preferred to building from source.
+  * On Windows, recommend using [MinGW](http://www.mingw.org/)
+* SDL_ttf >= 2.0
+  * All installation instructions can be found [here](https://www.libsdl.org/projects/SDL_ttf/docs/SDL_ttf_2.html)
+  * Note that for Linux, an `apt`, `apt-get`, `dnf` or `pacman` installation is preferred to building from source.
+  * On Windows, recommend using [MinGW](http://www.mingw.org/)
+* SDL_image >= 2.0
+  * All installation instructions can be found [here](https://www.libsdl.org/projects/SDL_image/docs/SDL_image_frame.html)
+  * Note that for Linux, an `apt`, `apt-get`, `dnf` or `pacman` installation is preferred to building from source.
+  * On Windows, recommend using [MinGW](http://www.mingw.org/)
 * gcc/g++ >= 5.4
   * Linux: gcc / g++ is installed by default on most Linux distros
   * Mac: same deal as make - [install Xcode command line tools](https://developer.apple.com/xcode/features/)
@@ -25,24 +40,24 @@ In this project, you can build your own C++ application or extend this Snake gam
 
 ## Basic Build Instructions
 
-```console
-$ # clone the repo
-$ git clone https://github.com/v-borg/cpp-snake-game.git
-$
-$ # change the current directory to the used by the repo
-$ cd cpp-snake-game
-$
-$ # make a build directory and change the current directory to it
-$ mkdir build && cd $_
-$
-$ # execute `cmake` command to prepare the project to be compiled
-$ cmake .. -DBUILD_TESTS=ON
-$
-$ # execute `make` to compile the project
-$ make
-$
-$ # run the project executable
-$ ./src/cpp_snake_game
+```bash
+# clone the repo
+git clone https://github.com/v-borg/cpp-snake-game.git
+
+# change the current directory to the used by the repo
+cd cpp-snake-game
+
+# make a build directory and change the current directory to it
+mkdir build && cd $_
+
+# execute `cmake` command to prepare the project to be compiled
+cmake .. -DBUILD_TESTS=ON
+
+# execute `make` to compile the project
+make
+
+# run the project executable
+./src/cpp_snake_game
 ```
 
 ## Build with [Unit Testing](https://en.wikipedia.org/wiki/Unit_testing)
@@ -54,33 +69,33 @@ You can find that tests [here](tests/), with the main behavior classes' explaine
 
 If you are going to run this tests with the project, some additional commands are needed:
 
-```console
-$ # make sure to clone the repo using `--recursive-module` from git command
-$ git clone --recurse-submodules https://github.com/v-borg/cpp-snake-game.git
-$
-$ # IMPORTANT!
-$ # if the repos was already cloned without the `--recursive-submodules` command, 
-$ # you can ignore the above command and still use the command below to ensure 
-$ # the Google Test and Google Mock will be available at compile time:
-$ #
-$ # git submodule update --init --recursive
-$
-$ # change the current directory to the used by the repo
-$ cd cpp-snake-game
-$
-$ # make a build directory and change the current directory to it
-$ mkdir build && cd $_
-$
-$ # execute `cmake` command with CMake's `BUILD_TEST` as `ON` to prepare the project 
-$ # and their tests to be compiled
-$ cmake .. -DBUILD_TESTS=ON
-$
-$ # execute `make` to compile the project
-$ make
-$
-$ # run the tests and the project executable as well
-$ ./tests/order
-$ ./src/cpp_snake_game
+```bash
+# make sure to clone the repo using `--recursive-module` from git command
+git clone --recurse-submodules https://github.com/v-borg/cpp-snake-game.git
+
+# IMPORTANT!
+# if the repos was already cloned without the `--recursive-submodules` command, 
+# you can ignore the above command and still use the command below to ensure 
+# the Google Test and Google Mock will be available at compile time:
+#
+# git submodule update --init --recursive
+
+# change the current directory to the used by the repo
+cd cpp-snake-game
+
+# make a build directory and change the current directory to it
+mkdir build && cd $_
+
+# execute `cmake` command with CMake's `BUILD_TEST` as `ON` to prepare the project 
+# and their tests to be compiled
+cmake .. -DBUILD_TESTS=ON
+
+# execute `make` to compile the project
+make
+
+# run the tests and the project executable as well
+./tests/order
+./src/cpp_snake_game
 ```
 
 ## Project Specification
