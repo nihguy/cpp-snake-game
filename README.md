@@ -1,8 +1,6 @@
 # Udacity C++ Nanodegree Program: Capstone
 
-This game is based on stater [repo](https://github.com/udacity/CppND-Capstone-Snake-Game) for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). 
-
-
+- [Summary](#summary)
 - [Dependencies](#dependencies-for-running-locally)
 - [Basic Build Instructions](#basic-build-instructions)
 - [Build with Unit Testing](#build-with-unit-testing)
@@ -13,6 +11,15 @@ This game is based on stater [repo](https://github.com/udacity/CppND-Capstone-Sn
     - [Object Oriented Programming](#object-oriented-programming)
     - [Memory Management](#memory-management)
     - [Concurrency](#concurrency)
+
+## Summary
+
+This Snake Game is based on stater [repo](https://github.com/udacity/CppND-Capstone-Snake-Game) for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The current project improve the original classes and add some features such as: 
+ 
+* Process the snake’s collision check in another thread;
+* Add some simple game state like `splash screen`, `game over`, `pause game` and so on;
+* Use the FSM (Finite State Machine) to uncouple each game states in their own classes and execute just one at a time.
+* Add SDL’s font to the game and store its text on texture, saving memory.
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
@@ -106,7 +113,7 @@ make
 |:-------:	|:---------------------------------------------------------------------	|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|         
 | &#9745; 	| A `README` with instructions is included with the project            	| The README is included with the project and has instructions for building/running the project. <br><br>If any additional libraries are needed to run the project, these are indicated with cross-platform installation instructions.<br><br>You can submit your writeup as markdown or pdf. 	|
 | &#9744; 	| The `README` indicates which project is chosen.                      	| The `README` describes the project you have built.<br><br>The `README` also indicates the file and class structure, along with the expected behavior or output of the program.                                                                                                        	    |
-| &#9744; 	| The `README` includes information about each rubric point addressed. 	| The `README` indicates which rubric points are addressed. The `README` also indicates where in the code (i.e. files and line numbers) that the rubric points are addressed.                                                                                                      	            |
+| &#9745; 	| The `README` includes information about each rubric point addressed. 	| The `README` indicates which rubric points are addressed. The `README` also indicates where in the code (i.e. files and line numbers) that the rubric points are addressed.                                                                                                      	            |
 
 
 ### Compiling and Testing (All Rubric Points REQUIRED)
