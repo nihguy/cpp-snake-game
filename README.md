@@ -1,6 +1,12 @@
 # Udacity C++ Nanodegree Program: Capstone
 
-- [Summary](#summary)
+This Snake Game is based on stater [repo](https://github.com/udacity/CppND-Capstone-Snake-Game) for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The current project improve the original classes, uncoupling the SDL from the core classes, so another libraries can be used. It also add some new features such as: 
+ 
+* Process the snake’s collision check in another thread;
+* Add some simple game state like `splash screen`, `game over`, `pause game` and so on;
+* Use the FSM (Finite State Machine) to uncouple each game states in their own classes and execute just one at a time.
+* Add SDL’s font to the game and store its text on texture, saving memory.
+
 - [Dependencies](#dependencies-for-running-locally)
 - [Basic Build Instructions](#basic-build-instructions)
 - [Build with Unit Testing](#build-with-unit-testing)
@@ -12,14 +18,71 @@
     - [Memory Management](#memory-management)
     - [Concurrency](#concurrency)
 
-## Summary
 
-This Snake Game is based on stater [repo](https://github.com/udacity/CppND-Capstone-Snake-Game) for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The current project improve the original classes and add some features such as: 
- 
-* Process the snake’s collision check in another thread;
-* Add some simple game state like `splash screen`, `game over`, `pause game` and so on;
-* Use the FSM (Finite State Machine) to uncouple each game states in their own classes and execute just one at a time.
-* Add SDL’s font to the game and store its text on texture, saving memory.
+## Project's Class Structure
+
+```bash
+src # Contain the main source files of the project 
+├── actor # Contain the main acton used to play the game 
+│   ├── snake.cc # This creates the snake source and wrap this behavior
+│   └── snake.hpp # This defines the snake header
+├── CMakeLists.txt
+├── core # The classes on this folder are independent and don't know how is the third-party library used to execute the game
+│   ├── allocation.hpp # The Allocation has a common structure to define the offset and size of the GameObjects
+│   ├── allocation.inl # As the Allocation is a template class, the .inl is used to uncouple the source from the header
+│   ├── block.cc # It's a generic GameObject that represents a square in the grid
+│   ├── block.hpp # It's defines the Block structure
+│   ├── button_chooser.cc # It simulates a button using a function and a font. It's kind of Command design pattern
+│   ├── button_chooser.hpp # It defines the ButtonChooser and the Button class. The last one is used under the hoods
+│   ├── color.cc # It's used to define color along the game.
+│   ├── color.hpp # It's based on SFML's color class.
+│   ├── controller.hpp # It's an abstract class defining a common interface to get a enum dispatched by some user inputs
+│   ├── font.cc # It defines a common interface to use the "font logic" of third-party libraries  
+│   ├── font.hpp # It defines the Font class and an abstract Typography class. The last one is used to add third-party libraries behavior to the game
+│   ├── food.cc # It's a Block wrapper used to dispatch a check collision in another thread, alerting the Snake when it is eating a food
+│   ├── food.hpp # It defines the food structure
+│   ├── game.cc # It's the Context from FMS. It holds a GameState stack and run one at each time, creating the screen transitions 
+│   ├── game.hpp # It defines the Capstone::Game structure
+│   ├── game_font.hpp # It defines a common interface to be used by third-party libraries to implement this logic 
+│   ├── game_loop.hpp # It creates a common interface to be used by third-party libraries to create their game loop logics
+│   ├── game_object.hpp # It defines a common interface to the object, allowing it to use the GameState correctly 
+│   ├── game_state.hpp # It's the abstract class from FSM. It allows the class to be used as a "screen wrapper", loading their content when it get focus
+│   ├── game_thread.cc # It's a common interface to get a thread barrier 
+│   ├── game_thread.hpp # It's defines the Capstone::GameThread structure
+│   ├── random_position.cc # This defines a simple random behavior respecting a limit value, useful to use with grid system
+│   ├── random_position.hpp # it defines the Capstone::RandomPosition structure
+│   ├── renderer.hpp # It defines a common interface to third-party libraries to implement their logic to render a square on the screen
+│   ├── vector2.hpp # This defines a simple coordinate handler. It's base on SFML's Vector2
+│   └── vector2.inl # As the Vector2 is a template class, the .inl is used to uncouple the source from the header
+├── main.cc # The main file used to compile the project
+├── resources # This folder holds the fonts used to display the text on game
+│   └── fonts 
+│       ├── BitPotion.ttf 
+│       └── PressStart2P.ttf
+├── sdl
+│   ├── controller.cc # This defines the SDL version of the Controller. It dispatch an enum when a known key is pressed by the user
+│   ├── controller.hpp # This extends the Capstone::Controller
+│   ├── font_maker.cc # This is a simple function to make easier fill the SDL::GameFontBuilder. It defines the font list used by the SDL version
+│   ├── font_maker.hpp # It defines the function strucutre
+│   ├── game_font_builder.cc # This defines the SDL version of the GameFont. It's used to create a easy access to the fonts, it's useful because the core classes don't know what's the library used to render the font
+│   ├── game_font_builder.hpp # This extends the Capstone::GameFont
+│   ├── game_loop.cc # It creates the SDL version of the Capstone::GameLoop
+│   ├── game_loop.hpp # It defines the GameLoop structure of SDL version
+│   ├── README.md
+│   ├── renderer.cc # This extends the Capstone::Renderer. It defines all the necessary methods to render a square on the screen, so the core classes don't need to know how to do it, just call for the method
+│   ├── renderer.hpp # It defines the structure of the SDL version of the renderer
+│   ├── typography.cc  # This extends the Capstone::Typography. It defines the SDL behavior of the font, so the core classes don't need to know how to render it, just execute the methods.
+│   └── typography.hpp # It defines the Typograph structure of the SDL version
+└── states # This folder holds the GameState inherited classes. It's used as wrapper of the screen behavior 
+    ├── end_game_state.cc # It creates both: the Game Over and the Winner state
+    ├── end_game_state.hpp # It defined the structure of the Capstone::EndGameState
+    ├── main_state.cc # It defines the MainState, in other words, it's where the "snake game" run properly
+    ├── main_state.hpp # It defines the structure of the Capstone::MainState
+    ├── pause_state.cc # It creates the Pause screen of the game.
+    ├── pause_state.hpp # It defines the structure of the Capstone::PauseState
+    ├── splash_screen_state.cc # It shows the Capstone info along the dertermined time until change the focus to the next GameState
+    └── splash_screen_state.hpp # It defines the structure of the Capstone::SplashScreenState
+```
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
@@ -112,7 +175,7 @@ make
 | _Done_  	| _Criteria_                                                           	| _Meets Specifications_                                                                                                                                                                                                                                                           	            |
 |:-------:	|:---------------------------------------------------------------------	|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|         
 | &#9745; 	| A `README` with instructions is included with the project            	| The README is included with the project and has instructions for building/running the project. <br><br>If any additional libraries are needed to run the project, these are indicated with cross-platform installation instructions.<br><br>You can submit your writeup as markdown or pdf. 	|
-| &#9744; 	| The `README` indicates which project is chosen.                      	| The `README` describes the project you have built.<br><br>The `README` also indicates the file and class structure, along with the expected behavior or output of the program.                                                                                                        	    |
+| &#9745; 	| The `README` indicates which project is chosen.                      	| The `README` describes the project you have built.<br><br>The `README` also indicates the file and class structure, along with the expected behavior or output of the program.                                                                                                        	    |
 | &#9745; 	| The `README` includes information about each rubric point addressed. 	| The `README` indicates which rubric points are addressed. The `README` also indicates where in the code (i.e. files and line numbers) that the rubric points are addressed.                                                                                                      	            |
 
 
