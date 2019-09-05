@@ -159,8 +159,12 @@ cd cpp-snake-game
 # make a build directory and change the current directory to it
 mkdir build && cd $_
 
-# execute `cmake` command with CMake's `BUILD_TEST` as `ON` to prepare the project 
-# and their tests to be compiled
+# There are two cmake options to build the unit tests
+#
+#  `BUILD_TESTS`: compile the project and its test cases at the same time. 
+#  `BUILD_TESTS_ONLY`: just compiles the tests.
+#
+# Choose one between them assigning `ON` as follows:
 cmake .. -DBUILD_TESTS=ON
 
 # execute `make` to compile the project
