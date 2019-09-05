@@ -11,7 +11,6 @@ before_script:
   - git submodule update --init --recursive
   - sudo apt-get install build-essential
   - sudo apt-get install cmake
-  - sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev
   - mkdir build
   - cd build
   - cmake .. -DBUILD_TESTS=On
