@@ -124,7 +124,7 @@ cd cpp-snake-game
 mkdir build && cd $_
 
 # execute `cmake` command to prepare the project to be compiled
-cmake .. -DBUILD_TESTS=ON
+cmake ..
 
 # execute `make` to compile the project
 make
