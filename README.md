@@ -1,4 +1,6 @@
-# Udacity C++ Nanodegree Program: Capstone
+
+
+# Udacity C++ Nanodegree Program: Capstone [![Build Status](https://travis-ci.org/v-borg/cpp-snake-game.svg?branch=master)](https://travis-ci.org/v-borg/cpp-snake-game)
 
 This Snake Game is based on stater [repo](https://github.com/udacity/CppND-Capstone-Snake-Game) for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The current project improve the original classes, uncoupling the SDL from the core classes, so another libraries can be used. It also add some new features such as: 
  
