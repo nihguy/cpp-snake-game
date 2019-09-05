@@ -13,7 +13,7 @@ before_script:
   - sudo apt-get install cmake
   - mkdir build
   - cd build
-  - cmake .. -DBUILD_TESTS=On
+  - cmake .. -DBUILD_TESTS_ONLY=On
   - make
 
 script: ./tests/order
