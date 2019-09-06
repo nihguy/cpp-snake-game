@@ -32,12 +32,12 @@ Capstone::Vector2<T>::Vector2 (const Capstone::Vector2<U>& vector):
 }
 
 template<typename T>
-Vector2<T> operator-(const Vector2<T> &right) {
+Vector2<T> operator -(const Vector2<T> &right) {
   return Vector2<T>(-right.x, -right.y);
 }
 
 template<typename T>
-Vector2<T> operator+=(Vector2<T> &left, const Vector2<T> &right) {
+Vector2<T>& operator +=(Vector2<T> &left, const Vector2<T> &right) {
   left.x += right.x;
   left.y += right.y;
 
@@ -45,7 +45,7 @@ Vector2<T> operator+=(Vector2<T> &left, const Vector2<T> &right) {
 }
 
 template<typename T>
-Vector2<T> operator -=(Vector2<T> &left, const Vector2<T> &right) {
+Vector2<T>& operator -=(Vector2<T> &left, const Vector2<T> &right) {
   left.x -= right.x;
   left.y -= right.y;
 
