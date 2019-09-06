@@ -59,6 +59,127 @@ class Vector2 {
 };
 
 /**
+ * Overload of unary operator -
+ *
+ * @param right Vector to negate
+ *
+ * @return Memberwise opposite of the vector
+ */
+template<typename T>
+Vector2<T> operator -(const Vector2<T>& right);
+
+/**
+ * Overload of binary operator +=
+ *
+ * This operator performs a memberwise addition of both vectors,
+ * and assigns the result to \a left.
+ *
+ * @param left  Left operand (a vector)
+ * @param right Right operand (a vector)
+ *
+ * @return Reference to \a left
+ */
+template<typename T>
+Vector2<T> operator +=(Vector2<T>& left, const Vector2<T>& right);
+
+/**
+ *  Overload of binary operator -=
+ *
+ * This operator performs a memberwise subtraction of both vectors,
+ * and assigns the result to \a left.
+ *
+ * @param left  Left operand (a vector)
+ * @param right Right operand (a vector)
+ *
+ * @return Reference to \a left
+ */
+template<typename T>
+Vector2<T> operator -=(Vector2<T>& left, const Vector2<T>& right);
+
+/**
+ * Overload of binary operator +
+ *
+ * @param left  Left operand (a vector)
+ * @param right Right operand (a vector)
+ *
+ * @return Memberwise addition of both vectors
+ */
+template<typename T>
+Vector2<T> operator +(const Vector2<T>& left, const Vector2<T>& right);
+
+/**
+ * Overload of binary operator -
+ *
+ * @param left  Left operand (a vector)
+ * @param right Right operand (a vector)
+ *
+ * @return Memberwise subtraction of both vectors
+ */
+template<typename T>
+Vector2<T> operator -(const Vector2<T>& left, const Vector2<T>& right);
+
+/**
+ * Overload of binary operator *
+ *
+ * @param left  Left operand (a vector)
+ * @param right Right operand (a scalar value)
+ *
+ * @return Memberwise multiplication by \a right
+ */
+template<typename T>
+Vector2<T> operator *(const Vector2<T>& left, T right);
+
+/**
+ * Overload of binary operator *
+ *
+ * @param left  Left operand (a scalar value)
+ * @param right Right operand (a vector)
+ *
+ * @return Memberwise multiplication by \a left
+ */
+template<typename T>
+Vector2<T> operator *(T left, const Vector2<T>& right);
+
+/**
+ * Overload of binary operator *=
+ *
+ * This operator performs a memberwise multiplication by \a right,
+ * and assigns the result to \a left.
+ *
+ * @param left  Left operand (a vector)
+ * @param right Right operand (a scalar value)
+ *
+ * @return Reference to \a left
+ */
+template<typename T>
+Vector2<T>& operator *=(Vector2<T>& left, T right);
+
+/**
+ * Overload of binary operator /
+ *
+ * @param left  Left operand (a vector)
+ * @param right Right operand (a scalar value)
+ *
+ * @return Memberwise division by \a right
+ */
+template<typename T>
+Vector2<T> operator /(const Vector2<T>& left, T right);
+
+/**
+ * Overload of binary operator /=
+ *
+ * This operator performs a memberwise division by \a right,
+ * and assigns the result to \a left.
+ *
+ * @param left  Left operand (a vector)
+ * @param right Right operand (a scalar value)
+ *
+ * @return Reference to \a left
+ */
+template<typename T>
+Vector2<T>& operator /=(Vector2<T>& left, T right);
+
+/**
  * Overload of binary operator ==
  *
  * This operator compares strict equality between two vectors.

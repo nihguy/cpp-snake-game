@@ -31,16 +31,76 @@ Capstone::Vector2<T>::Vector2 (const Capstone::Vector2<U>& vector):
 
 }
 
+template<typename T>
+Vector2<T> operator-(const Vector2<T> &right) {
+  return Vector2<T>(-right.x, -right.y);
+}
+
+template<typename T>
+Vector2<T> operator+=(Vector2<T> &left, const Vector2<T> &right) {
+  left.x += right.x;
+  left.y += right.y;
+
+  return left;
+}
+
+template<typename T>
+Vector2<T> operator -=(Vector2<T> &left, const Vector2<T> &right) {
+  left.x -= right.x;
+  left.y -= right.y;
+
+  return left;
+}
+
+template<typename T>
+Vector2<T> operator +(const Vector2<T> &left, const Vector2<T> &right) {
+  return Vector2<T>(left.x + right.x, left.y + right.y);
+}
+
+template<typename T>
+Vector2<T> Capstone::operator -(const Vector2<T> &left, const Vector2<T> &right) {
+  return Vector2<T>(left.x - right.x, left.x - right.x);
+}
+
+template<typename T>
+Vector2<T> operator *(const Vector2<T> &left, T right) {
+  return Vector2<T>(right.x * left, right.y * left);
+}
+
+template<typename T>
+Vector2<T> Capstone::operator *(T left, const Vector2<T> &right) {
+  return Vector2<T>(right.x * left, right.y * left);
+}
+
+template<typename T>
+Vector2<T>& operator *=(Vector2<T> &left, T right) {
+  left.x *= right;
+  left.y *= right;
+
+  return left;
+}
+
+template<typename T>
+Vector2<T> operator /(const Vector2<T> &left, T right) {
+  return Vector2<T>(left.x / right, left.y / right);
+}
+
+template<typename T>
+Vector2<T>& operator /=(Vector2<T> &left, T right) {
+  left.x /= right.x;
+  left.y /= right.y;
+
+  return left;
+}
+
 template <typename T, typename U>
 bool operator ==(const Capstone::Vector2<T>& left, const Capstone::Vector2<U>& right)
 {
   return (left.x == right.x) && (left.y == right.y);
 }
 
-
 template <typename T, typename U>
 bool operator !=(const Capstone::Vector2<T>& left, const Capstone::Vector2<U>& right)
 {
   return !(left == right);
 }
-
