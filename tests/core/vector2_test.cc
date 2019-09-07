@@ -116,7 +116,8 @@ TYPED_TEST(Vector2Test, NegativeOperator_ShouldConvertCoordinatestoTheirNegativa
   this->Assign(new ::Capstone::Vector2<TypeParam>(10, 10));
 
   auto negative = -*this->vector2;
-  ASSERT_EQ(negative, ::Capstone::Vector2<TypeParam>(-10, -10)) << "Should convert coordinates to theirs negative values";
+  ASSERT_EQ(negative.x, -10) << "The x's coordinate should be converted to its negative value";
+  ASSERT_EQ(negative.y, -10) << "The y's coordinate should be converted to its negative value";
 }
 
 TYPED_TEST(Vector2Test, AdditionAssignmentOperator_ShouldSumTheValueToTheCurrentVector2)
@@ -124,15 +125,17 @@ TYPED_TEST(Vector2Test, AdditionAssignmentOperator_ShouldSumTheValueToTheCurrent
   this->Assign(new ::Capstone::Vector2<TypeParam>(10, 10));
 
   *this->vector2 += ::Capstone::Vector2<TypeParam>(1, 2);
-  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(11, 12)) << "Should sum the right value to the current one";
+  ASSERT_EQ(this->vector2->x, static_cast<TypeParam>(11)) << "The x's coordinate should be the sum of the current Vector2's `x` coordinate by another Vector2's `x` coordinate";
+  ASSERT_EQ(this->vector2->y, static_cast<TypeParam>(12)) << "The y's coordinate should be the sum of the current Vector2's `y` coordinate by another Vector2's `y` coordinate";
 }
 
-TYPED_TEST(Vector2Test, SubtractionAssignmentOperator_ShouldSubtractTheValueToTheCurrentVector2)
+TYPED_TEST(Vector2Test, SubtractionAssignmentOperator_ShouldSubtractTheValueFromTheCurrentVector2)
 {
   this->Assign(new ::Capstone::Vector2<TypeParam>(10, 10));
 
   *this->vector2 -= ::Capstone::Vector2<TypeParam>(1, 2);
-  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(9, 8)) << "Should subtract the right value to the current one";
+  ASSERT_EQ(this->vector2->x, static_cast<TypeParam>(9)) << "The x's coordinate should be the subtraction of the current Vector2's `x` coordinate by another Vector2's `x` coordinate";
+  ASSERT_EQ(this->vector2->y, static_cast<TypeParam>(8)) << "The y's coordinate should be the subtraction of the current Vector2's `y` coordinate by another Vector2's `y` coordinate";
 }
 
 TYPED_TEST(Vector2Test, AdditionOperator_ShouldSumTheValueofTwoVector2CreatingANewOne)
@@ -140,7 +143,8 @@ TYPED_TEST(Vector2Test, AdditionOperator_ShouldSumTheValueofTwoVector2CreatingAN
   this->Assign(new ::Capstone::Vector2<TypeParam>(0, 0));
 
   *this->vector2 = ::Capstone::Vector2<TypeParam>(1, 2) + ::Capstone::Vector2<TypeParam>(3, 4);
-  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(4, 6)) << "Should sum the value of two vector2 creating a new one";
+  ASSERT_EQ(this->vector2->x, static_cast<TypeParam>(4)) << "The new y's coordinate should be the sum of each Vector2's `x` coordinates";
+  ASSERT_EQ(this->vector2->y, static_cast<TypeParam>(6)) << "The new y's coordinate should be the sum of each Vector2's `y` coordinates";
 }
 
 TYPED_TEST(Vector2Test, SubtractionOperator_ShouldSubtractTheValueofTwoVector2CreatingANewOne)
@@ -148,7 +152,8 @@ TYPED_TEST(Vector2Test, SubtractionOperator_ShouldSubtractTheValueofTwoVector2Cr
   this->Assign(new ::Capstone::Vector2<TypeParam>(0, 0));
 
   *this->vector2 = ::Capstone::Vector2<TypeParam>(3, 4) - ::Capstone::Vector2<TypeParam>(2, 3);
-  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(1, 1)) << "Should subtract the value of two vector2 creating a new one";
+  ASSERT_EQ(this->vector2->x, static_cast<TypeParam>(1)) << "The new x's coordinate should be the subtraction of the each Vector2's `x` coordinates";
+  ASSERT_EQ(this->vector2->y, static_cast<TypeParam>(1)) << "The new y's coordinate should be the subtraction of the each Vector2's `y` coordinates";
 }
 
 TYPED_TEST(Vector2Test, MultiplicationOperator_ShouldMultilpyTheValueofEachVector2CordinateBytheNumericValueOfTheSameType)
@@ -156,10 +161,12 @@ TYPED_TEST(Vector2Test, MultiplicationOperator_ShouldMultilpyTheValueofEachVecto
   this->Assign(new ::Capstone::Vector2<TypeParam>(0, 0));
 
   *this->vector2 = ::Capstone::Vector2<TypeParam>(1, 2) * static_cast<TypeParam>(3);
-  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(3, 6)) << "The Vector2 on left: should multiply its coordinates with a numeric value of the same type, creating a new Vector2 from the result";
+  ASSERT_EQ(this->vector2->x, static_cast<TypeParam>(3)) << "The new x's coordinate should be the multiplication of the Vector2's `x` coordinate by the numeric value when the Vector2 be on left of multiplication";
+  ASSERT_EQ(this->vector2->y, static_cast<TypeParam>(6)) << "The new y's coordinate should be the multiplication of the Vector2's `y` coordinate by the numeric value when the Vector2 be on left of multiplication";
 
   *this->vector2 = static_cast<TypeParam>(3) * ::Capstone::Vector2<TypeParam>(1, 2);
-  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(3, 6)) << "The Vector2 on left: should multiply its coordinates with a numeric value of the same type, creating a new Vector2 from the result";
+  ASSERT_EQ(this->vector2->x, static_cast<TypeParam>(3)) << "The new x's coordinate should be the multiplication of the right's `x` coordinate by the numeric value when the Vector2 be on right of multiplication";
+  ASSERT_EQ(this->vector2->y, static_cast<TypeParam>(6)) << "The new y's coordinate should be the multiplication of the right's `y` coordinate by the numeric value when the Vector2 be on right of multiplication";
 }
 
 TYPED_TEST(Vector2Test, MultiplicationAssignmentOperator_ShouldMultilpyTheValueofEachVector2CordinateBytheNumericValueOfTheSameTypeAndAssignTheResultToThisVector2)
@@ -167,7 +174,8 @@ TYPED_TEST(Vector2Test, MultiplicationAssignmentOperator_ShouldMultilpyTheValueo
   this->Assign(new ::Capstone::Vector2<TypeParam>(1, 2));
 
   *this->vector2 *= static_cast<TypeParam>(3);
-  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(3, 6)) << "Should multiply its coordinates with a numeric value of the same type, assigning the value to this Vector2";
+  ASSERT_EQ(this->vector2->x, static_cast<TypeParam>(3)) << "The x's coordinate should be the multiplication of the current Vector2's `x` coordinate by the numeric value";
+  ASSERT_EQ(this->vector2->y, static_cast<TypeParam>(6)) << "The y's coordinate should be the multiplication of the current Vector2's `y` coordinate by the numeric value";
 }
 
 TYPED_TEST(Vector2Test, DivisionOperator_ShouldDivideTheValueofEachVector2CordinateBytheNumericValueOfTheSameTypeCreatingANewVector2WithTheResult)
@@ -175,7 +183,8 @@ TYPED_TEST(Vector2Test, DivisionOperator_ShouldDivideTheValueofEachVector2Cordin
   this->Assign(new ::Capstone::Vector2<TypeParam>(0, 0));
 
   *this->vector2 = ::Capstone::Vector2<TypeParam>(2, 4) / static_cast<TypeParam>(2);
-  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(1, 2)) << "Should divide each coordinate by the numeric value (denominator) of the same type, creating a new Vector2 with the result";
+  ASSERT_EQ(this->vector2->x, static_cast<TypeParam>(1)) << "The new x's coordinate should be the division of the right `x` value by the left numeric value when the Vector2 be on left of division";
+  ASSERT_EQ(this->vector2->y, static_cast<TypeParam>(2)) << "The new y's coordinate should be the division of the right `y` value by the left numeric value when the Vector2 be on left of division";
 }
 
 TYPED_TEST(Vector2Test, DivisionAssignmentOperator_ShouldDivideTheValueofEachVector2CordinateBytheNumericValueOfTheSameTypeAndAssignTheResultToThisVector2)
@@ -183,7 +192,8 @@ TYPED_TEST(Vector2Test, DivisionAssignmentOperator_ShouldDivideTheValueofEachVec
   this->Assign(new ::Capstone::Vector2<TypeParam>(2, 4));
 
   *this->vector2 /= static_cast<TypeParam>(2);
-  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(1, 2)) << "Should divide each coordinate by the numeric value (denominator) of the same type, assigning the value to this Vector2";
+  ASSERT_EQ(this->vector2->x, static_cast<TypeParam>(1)) << "The x's coordinate should be the division of the current Vector2's `x` coordinate by left numeric value";
+  ASSERT_EQ(this->vector2->y, static_cast<TypeParam>(2)) << "The y's coordinate should be the division of the current Vector2's `y` coordinate by left numeric value";
 }
 
 TYPED_TEST(Vector2Test, Coordinates_ShouldAcceptAssignmentAsWellAsTheirTypes)
