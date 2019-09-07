@@ -64,7 +64,7 @@ Capstone::Vector2<T> operator -(const Capstone::Vector2<T> &left, const Capstone
 
 template<typename T>
 Capstone::Vector2<T> operator *(const Capstone::Vector2<T> &left, T right) {
-  return Capstone::Vector2<T>(right.x * left, right.y * left);
+  return Capstone::Vector2<T>(left.x * right, left.y * right);
 }
 
 template<typename T>
