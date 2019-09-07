@@ -83,7 +83,7 @@ TYPED_TEST(Vector2Test, CopyContructor_ShouldCastTheCopiedVector2ToTheCurrentTyp
   }
 }
 
-TYPED_TEST(Vector2Test, Cordinates_ShouldBeReassigned)
+TYPED_TEST(Vector2Test, Cordinates_EachCoordinateValueShouldBeReassigned)
 {
   this->Assign (new ::Capstone::Vector2<TypeParam> {});
 
@@ -109,6 +109,14 @@ TYPED_TEST(Vector2Test, IsEqualToAndIsNotEqualToOperators_ShouldVector2BeCompare
 
   ASSERT_FALSE (*this->vector2 == diffCoordinates) << "Should ignore the type and return false to `==` because one of the coordinate values are different";
   ASSERT_FALSE (*this->vector2 != sameCoordinates) << "Should ignore the type and return false to `!=` because all coordinate value are the same";
+}
+
+TYPED_TEST(Vector2Test, NegativeOperator_ShouldConvertCoordinatestoTheirNegativateValue)
+{
+  this->Assign(new ::Capstone::Vector2<TypeParam>(10, 10));
+
+  auto negative = -*this->vector2;
+  ASSERT_EQ(negative, ::Capstone::Vector2<TypeParam>(-10, -10)) << "Should convert coordinates to theirs negative values";
 }
 
 TYPED_TEST(Vector2Test, Coordinates_ShouldAcceptAssignmentAsWellAsTheirTypes)
