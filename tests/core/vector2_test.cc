@@ -151,6 +151,17 @@ TYPED_TEST(Vector2Test, SubtractionOperator_ShouldSubtractTheValueofTwoVector2Cr
   ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(1, 1)) << "Should subtract the value of two vector2 creating a new one";
 }
 
+TYPED_TEST(Vector2Test, MultiplicationOperator_ShouldMultilpyTheValueofEachVector2CordinateBytheNumericValueOfTheSameType)
+{
+  this->Assign(new ::Capstone::Vector2<TypeParam>(0, 0));
+
+  *this->vector2 = ::Capstone::Vector2<TypeParam>(1, 2) * static_cast<TypeParam>(3);
+  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(3, 6)) << "The Vector2 on left: should multiply its coordinates with a numeric value of the same type, creating a new Vector2 from the result";
+
+  *this->vector2 = static_cast<TypeParam>(3) * ::Capstone::Vector2<TypeParam>(1, 2);
+  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(3, 6)) << "The Vector2 on left: should multiply its coordinates with a numeric value of the same type, creating a new Vector2 from the result";
+}
+
 TYPED_TEST(Vector2Test, Coordinates_ShouldAcceptAssignmentAsWellAsTheirTypes)
 {
   this->Assign (new ::Capstone::Vector2<TypeParam> {100});
