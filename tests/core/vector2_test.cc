@@ -170,6 +170,14 @@ TYPED_TEST(Vector2Test, MultiplicationAssignmentOperator_ShouldMultilpyTheValueo
   ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(3, 6)) << "Should multiply its coordinates with a numeric value of the same type, assigning the value to this Vector2";
 }
 
+TYPED_TEST(Vector2Test, DivisionOperator_ShouldDivideTheValueofEachVector2CordinateBytheNumericValueOfTheSameTypeAndAssignTheResultToThisVector2)
+{
+  this->Assign(new ::Capstone::Vector2<TypeParam>(0, 0));
+
+  *this->vector2 = ::Capstone::Vector2<TypeParam>(2, 4) / static_cast<TypeParam>(2);
+  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(1, 2)) << "Should divide each coordinate by the numeric value (denominator) of the same type, creating a new Vector2 with the result";
+}
+
 TYPED_TEST(Vector2Test, Coordinates_ShouldAcceptAssignmentAsWellAsTheirTypes)
 {
   this->Assign (new ::Capstone::Vector2<TypeParam> {100});
