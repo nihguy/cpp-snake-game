@@ -162,7 +162,7 @@ TYPED_TEST(Vector2Test, MultiplicationOperator_ShouldMultilpyTheValueofEachVecto
   ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(3, 6)) << "The Vector2 on left: should multiply its coordinates with a numeric value of the same type, creating a new Vector2 from the result";
 }
 
-TYPED_TEST(Vector2Test, MultiplicationAssignmentonOperator_ShouldMultilpyTheValueofEachVector2CordinateBytheNumericValueOfTheSameTypeAndAssignTheResultToThisVector2)
+TYPED_TEST(Vector2Test, MultiplicationAssignmentOperator_ShouldMultilpyTheValueofEachVector2CordinateBytheNumericValueOfTheSameTypeAndAssignTheResultToThisVector2)
 {
   this->Assign(new ::Capstone::Vector2<TypeParam>(1, 2));
 
