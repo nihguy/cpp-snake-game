@@ -127,6 +127,14 @@ TYPED_TEST(Vector2Test, AdditionAssignmentOperator_ShouldSumTheValueToTheCurrent
   ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(11, 12)) << "Should sum the right value to the current one";
 }
 
+TYPED_TEST(Vector2Test, SubtractionAssignmentOperator_ShouldSubtractTheValueToTheCurrentVector2)
+{
+  this->Assign(new ::Capstone::Vector2<TypeParam>(10, 10));
+
+  *this->vector2 -= ::Capstone::Vector2<TypeParam>(1, 2);
+  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(9, 8)) << "Should subtract the right value to the current one";
+}
+
 TYPED_TEST(Vector2Test, Coordinates_ShouldAcceptAssignmentAsWellAsTheirTypes)
 {
   this->Assign (new ::Capstone::Vector2<TypeParam> {100});
