@@ -119,6 +119,14 @@ TYPED_TEST(Vector2Test, NegativeOperator_ShouldConvertCoordinatestoTheirNegativa
   ASSERT_EQ(negative, ::Capstone::Vector2<TypeParam>(-10, -10)) << "Should convert coordinates to theirs negative values";
 }
 
+TYPED_TEST(Vector2Test, AdditionAssignmentOperator_ShouldSumTheValueToTheCurrentVector2)
+{
+  this->Assign(new ::Capstone::Vector2<TypeParam>(10, 10));
+
+  *this->vector2 += ::Capstone::Vector2<TypeParam>(1, 2);
+  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(11, 12)) << "Should sum the right value to the current one";
+}
+
 TYPED_TEST(Vector2Test, Coordinates_ShouldAcceptAssignmentAsWellAsTheirTypes)
 {
   this->Assign (new ::Capstone::Vector2<TypeParam> {100});
