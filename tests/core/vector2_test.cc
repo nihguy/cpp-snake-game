@@ -143,6 +143,14 @@ TYPED_TEST(Vector2Test, AdditionOperator_ShouldSumTheValueofTwoVector2CreatingAN
   ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(4, 6)) << "Should sum the value of two vector2 creating a new one";
 }
 
+TYPED_TEST(Vector2Test, SubtractionOperator_ShouldSubtractTheValueofTwoVector2CreatingANewOne)
+{
+  this->Assign(new ::Capstone::Vector2<TypeParam>(0, 0));
+
+  *this->vector2 = ::Capstone::Vector2<TypeParam>(3, 4) - ::Capstone::Vector2<TypeParam>(2, 3);
+  ASSERT_EQ(*this->vector2, ::Capstone::Vector2<TypeParam>(1, 1)) << "Should subtract the value of two vector2 creating a new one";
+}
+
 TYPED_TEST(Vector2Test, Coordinates_ShouldAcceptAssignmentAsWellAsTheirTypes)
 {
   this->Assign (new ::Capstone::Vector2<TypeParam> {100});
