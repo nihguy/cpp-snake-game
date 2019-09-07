@@ -87,8 +87,8 @@ Capstone::Vector2<T> operator /(const Capstone::Vector2<T> &left, T right) {
 
 template<typename T>
 Capstone::Vector2<T>& operator /=(Capstone::Vector2<T> &left, T right) {
-  left.x /= right.x;
-  left.y /= right.y;
+  left.x /= right;
+  left.y /= right;
 
   return left;
 }
